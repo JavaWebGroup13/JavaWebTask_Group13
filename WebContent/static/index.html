@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人博客</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+
+</head> 
+<body>
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- head -->
+    <div class="container">
+        <div class="head">
+            <!-- 头部导航 -->
+            <div class="container fixed-top">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href="#">个人博客</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="?route=home">主页</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="?route=category">分类</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="?route=about">关于</a>
+                            </li>
+                            <!-- 未登录 -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="?route=login">登录</a>
+                            </li>
+                            <!-- 已登录 -->
+                            <li class="nav-item dropdown ml-auto">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">511098094@qq.com</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="?route=center">个人中心</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="?route=logout">退出</a>
+                                </div>
+                            </li>
+                        </ul>
+                        <form class="form-inline my-2 my-lg-0" method="GET" action="index.html">
+                            <input type="hidden" name="route" value="search">
+                            <input class="form-control mr-sm-2" type="search" placeholder="文章/关键字" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- 面包屑导航 -->
+            <nav aria-label="breadcrumb" style="margin-top: 66px;">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="?route=home">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">login</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- body -->
+    <div class="container body">
+
+        <!-- All in one -->
+        <div class="alert alert-warning" role="alert">
+            当前页面为前端预览页面，开发时需要将源代码复制到相应的JSP文件中进一步开发。
+        </div>
+
+
+
+        <!-- home -->
+        <div class="home row">
+            <!-- 没有文章时 -->
+            <div class="col-md-12">
+                <div class="alert alert-info" role="alert">
+                    还没有文章，快去写一篇吧！<a href="?route=write">写文章</a>
+                </div>
+            </div>
+            <!-- 左侧 -->
+            <div class="col-md-9">
+                <!-- 第一篇文章 -->
+                <div class="card mb-3">
+                    <img src="img/image.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="?route=details" role="button">Card title</a>
+                        </h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        
+                    </div>
+                </div>
+                <!-- 其他文章 -->
+                <div class="row row-cols-1 row-cols-md-2">
+                    <div class="col mb-4">
+                        <div class="card">
+                            <img src="img/image.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="?route=details" role="button">Card title</a>
+                                </h5>
+                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card">
+                            <img src="img/image.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="?route=details" role="button">Card title</a>
+                                </h5>
+                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card">
+                            <img src="img/image.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="?route=details" role="button">Card title</a>
+                                </h5>
+                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 分页器 -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- 右侧 -->
+            <div class="col-md-3">
+                <!-- 个人信息 -->
+                <div class="card">
+                    <img src="img/image.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h4 class="card-title">王荆茜</h4>
+                        <p class="card-text">做个俗人，见山是山，见水是水</p>
+                        <a type="button" href="?route=write" class="btn btn-primary btn-block">写文章</a>
+                    </div>
+                </div>
+
+                <h4 class="title mt-4 ml-2">最近更新</h4>
+                <!-- 推荐文章 -->
+                <div class="list-group list-group-flush mt-4">
+                    <a href="#" class="list-group-item list-group-item-action">A second link item</a>
+                    <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+                    <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="write">
+            <!-- 没有登录 -->
+            <div class="alert alert-warning" role="alert">
+                无法写作，您没有权限，<a href="?route=login">点此登录</a>
+            </div>
+            <!-- 已登录 -->
+            <form>
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">选择封面</label>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">标题</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">类别</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        <option>Android</option>
+                        <option>Python</option>
+                        <option>JavaWeb</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">描述</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">文章正文</label>
+                    <textarea id="editor" cols="20" rows="5" class="ckeditor form-control"></textarea>
+                </div>
+                <button type="submit" class="btn btn-secondary" style="width: 100px;">保存</button>
+                <button type="submit" class="btn btn-primary" style="width: 100px;">提交</button>
+            </form>
+            <script>
+                ClassicEditor.create(document.querySelector('#editor'))
+                .catch( error => {
+                    console.error( error ); 
+                })
+            </script>
+        </div>
+
+        <!-- login -->
+        <div class="login" action="?route=center" method="get">
+            <form>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password">
+                </div>
+                <p>
+                    没有账号？<a href="?route=register">去注册</a>
+                </p>
+                <button type="submit" class="btn btn-primary">登 录</button>
+            </form>
+        </div>
+
+        <!-- register -->
+         <div class="register">
+            <form>
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input type="text" class="form-control" id="username">
+                </div>
+                <div class="form-group">
+                    <label for="password1">密码</label>
+                    <input type="password" class="form-control" id="password1">
+                </div>
+                <div class="form-group">
+                    <label for="password2">确认密码</label>
+                    <input type="password" class="form-control" id="password2">
+                </div>
+                <p>
+                    已有账号？<a href="?route=login">去登录</a>
+                </p>
+                <button type="submit" class="btn btn-primary">注 册</button>
+            </form>
+        </div>
+
+        <!-- center -->
+        <div class="center">
+            <!-- 统计 -->
+            
+            <!-- 信息 -->
+            <div class="jumbotron">
+                <img src="img/image.png" alt="" style="width: 200px;height: 200px;" class="mb-4">
+                <div class="row">
+                    <h1 class="display-4 col-md-9">王荆茜</h1>
+                    <a href="" class="col-md-3" data-toggle="modal" data-target="#exampleModal">修改资料</a>
+                </div>
+                <p class="lead col-md-10">做个俗人，贪财好色，我就是王荆茜，王荆茜就是我！</p>
+                <hr class="my-4">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text text-center">32篇</p>
+                                <h5 class="card-title text-center">文章</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text text-center">332</p>
+                                <h5 class="card-title text-center">评论</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text text-center">4个</p>
+                                <h5 class="card-title text-center">类别</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 修改信息的弹出框 -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">修改资料</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">昵称</label>
+                                        <input type="text" class="form-control" id="recipient-name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">简介</label>
+                                        <textarea class="form-control" id="message-text"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary">保 存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 修改信息弹出框的JS -->
+                <script>
+                    $('#exampleModal').on('show.bs.modal', function (event) {
+                        var button = $(event.relatedTarget)
+                        // modal.find('.modal-body input').val(recipient)
+                    })
+                </script>
+            </div>
+        </div>
+
+        <!-- category类别 -->
+        <div class="category">
+            <!-- 类别类别 -->
+            <ul class="nav mb-2">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">安卓</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">JavaWeb</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">数据库</a>
+                </li>
+            </ul>
+            <!-- 文章列表 -->
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <!-- 分页 -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+
+        <!-- about -->
+        <div class="about">
+            <!-- 巨幕 -->
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-4">开发组</h1>
+                    <p class="lead">地址：
+                        <a href="https://github.com/JavaWebGroup13" target="_blank" class="link">JavaWebGroup13</a>
+                    </p>
+                    <p class="lead">存储库地址：
+                        <a href="https://github.com/JavaWebGroup13/JavaWebTask_Group13" target="_blank" class="link">JavaWebTask_Group13</a>
+                    </p>
+                </div>
+            </div>
+            <!-- 制作人员名单 -->
+            <div class="card-deck">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://avatars.githubusercontent.com/u/29974251?s=96&v=4" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">任红灿</h5>
+                        <p class="card-text">分配任务：网页设计、数据库设计、后台代码编写</p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <img src="https://avatars.githubusercontent.com/u/85050358?s=96&v=4" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">刘风暴</h5>
+                        <p class="card-text">分配任务：创建数据库、数据表、后台代码编写</p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <img src="https://avatars.githubusercontent.com/u/85050787?s=96&v=4" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">任寒露</h5>
+                        <p class="card-text">分配任务：编写JDBC工具类、其他工具类、后台代码编写</p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <img src="http://q1.qlogo.cn/g?b=qq&nk=1813167098&s=640" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">武文龙</h5>
+                        <p class="card-text">分配任务：SQL语句编写、撰写项目文档、后台代码编写</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 用到的开源项目 -->
+            <div class="card-deck">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="https://ckeditor.com/ckeditor-5/online-builder" class="link">ckeditor</a>
+                    </div>
+                </div>
+                 <div class="card">
+                    <div class="card-body">
+                        <a href="https://v4.bootcss.com/docs/components/list-group/">bootcss</a>
+                    </div>
+                </div>
+                 <div class="card">
+                    <div class="card-body">
+                        <a href="https://jquery.com">jquery</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- details -->
+        <div class="details row">
+            <!-- 左侧 -->
+            <div class="col-md-9">
+                <!-- 文章信息 -->
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <h1 class="display-4">刺杀王荆茜相关事宜</h1>
+                        <p class="lead">Last updated 3 mins ago By openrhc</p>
+                        <hr class="my-4">
+                        <p>This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                        <p>This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                        <p>This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                        <p>This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                    </div>
+                </div>
+                <!-- 评论列表 -->
+                <h4 class="mb-4">评论列表</h4>
+                <div class="media">
+                    <img src="img/image.png" class="mr-3" alt="..." style="width: 64px;height: 64px;">
+                    <div class="media-body">
+                        <h5 class="mt-0">王荆茜</h5>
+                        <div class="row">
+                            <p class="col-md-9">这篇文章写的真不错呀</p>
+                            <p class="col-md-3">2020-12-12</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="media">
+                    <img src="img/image.png" class="mr-3" alt="..." style="width: 64px;height: 64px;">
+                    <div class="media-body">
+                        <h5 class="mt-0">王荆茜</h5>
+                        <div class="row">
+                            <p class="col-md-9">这篇文章写的真不错呀</p>
+                            <p class="col-md-3">2020-12-12</p>
+                            <div class="media mt-3">
+                                <a class="mr-3" href="#">
+                                    <img src="img/image.png" alt="..." style="width: 64px;height: 64px;">
+                                </a>
+                                <div class="media-body">
+                                    <h5 class="mt-0">刘风暴</h5>
+                                    <p>你眼光真好！</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 右侧 -->
+            <div class="col-md-3">
+                <h4 class="title mt-4 ml-2">相关推荐</h4>
+                <!-- 推荐文章 -->
+                <div class="list-group list-group-flush mt-4">
+                    <a href="#" class="list-group-item list-group-item-action">A second link item</a>
+                    <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+                    <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- logout -->
+        <div class="logout">
+            <div class="alert alert-success" role="alert">
+                您已成功退出，即将跳转到主页面！ 或：<a href="?route=login">点此登录</a>
+            </div>
+        </div>
+
+        <!-- search -->
+        <div class="search">
+            <div class="alert alert-success" role="alert">
+                成功检索到 2 条相关文章！
+            </div>
+            <div class="alert alert-warning" role="alert">
+                未查找到关于 “嘿嘿嘿” 的相关文章，换个关键词试试吧！
+            </div>
+            <!-- 搜索结果 -->
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="?route=details">Card title</a>
+                    </h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </p>
+                    
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="?route=details">Card title</a>
+                    </h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <!-- 分页 -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="container-fluid footer">
+        <div class="container mt-4">
+            <p class="text-center">
+                © 2021 by JavaWebGroup13
+                <a href="https://github.com/JavaWebGroup13/JavaWebTask_Group13" class="link">GitHub项目地址</a>
+            </p>
+            
+        </div>
+    </div>
+
+    <script>
+        let routes = {
+            home: 'home',
+            login: 'login',
+            logout: 'logout',
+            register: 'register',
+            details: 'details',
+            write: 'write',
+            center: 'center',
+            category: 'category',
+        }
+
+        // let route = routes.center
+        
+
+        let i = location.href.indexOf('route=')
+        if(i == -1) {
+            route = routes.home
+        }else{
+            route = location.href.substr(i + 6)
+        }
+
+        let as = document.querySelectorAll('.body > div')
+        as.forEach(a => {
+            a.style.display = 'none'
+        })
+
+        let display = [routes.home, routes.details].includes(route) ? 'flex' : 'block'
+        document.querySelector(`.body > .${route}`).style.display = display
+    </script>
+</body>
+</html>
