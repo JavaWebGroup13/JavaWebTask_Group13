@@ -8,4 +8,5 @@
                 您已成功退出，即将跳转到主页面！ 或：<a href="${pageContext.request.contextPath}/login.jsp">点此登录</a>
             </div>
         </div>
+        <% response.setHeader("Refresh", "3;URL=/JavaWebTask_Group13/index.jsp"); %>
 <%@include file="foot.jsp" %>

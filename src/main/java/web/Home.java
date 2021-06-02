@@ -1,11 +1,22 @@
 package web;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import bean.Article;
+import bean.User;
+import dao.ArticleDao;
+import dao.DaoFactory;
+import dao.UserDao;
 
 /**
  * Servlet implementation class Home
@@ -27,7 +38,32 @@ public class Home extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String isLogin = "false";
+		
+		Cookie[] cookies = request.getCookies();
+		for(int i = 0; cookies != null && i < cookies.length; i++) {
+			if("isLogin".equals(cookies[i].getName())) {
+				isLogin = cookies[i].getValue();
+			}
+		}
+		
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		
+		ArticleDao articleDao = DaoFactory.getArticleDaoInstance();
+		List<Article> articles = new ArrayList<Article>();
+		
+		if("true".equals(isLogin)) {
+			// 已登录，查询自己的文章
+			articles = articleDao.queryAll(user.getId());
+		}else {
+			// 否则，查询所有文章
+			articles = articleDao.queryAll();
+		}
+		System.out.println(articles.size() + " lenght");
+		session.setAttribute("articles", articles);
+		response.sendRedirect("/JavaWebTask_Group13/index.jsp");
+	
 	}
 
 	/**

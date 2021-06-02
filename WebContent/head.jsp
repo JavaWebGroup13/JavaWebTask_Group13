@@ -9,9 +9,17 @@
 <%@ page import="bean.*" %>
 
 <%
-	boolean isLogin = (Boolean)session.getAttribute("isLogin");
+	boolean isLogin = false;
+	User user = null;
 	
-	User user = (User)session.getAttribute("user");
+	try{
+		isLogin = (Boolean)session.getAttribute("isLogin");
+		user = (User)session.getAttribute("user");
+	}catch(Exception e){
+		System.out.println("获取session参数错误");
+		e.printStackTrace();
+	}
+	
 %>
 
 <!DOCTYPE html>
@@ -54,13 +62,13 @@
 	                            <c:when test="${isLogin}"  >
 		                            <li class="nav-item dropdown ml-auto">
 		                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-		                                	<%= user.getUsername() %>
+		                                	<%=  user.getUsername() %>
 		                                </a>
 		                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 		                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/center.jsp">个人中心</a>
 		                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/write.jsp">写文章</a>
 		                                    <div class="dropdown-divider"></div>
-		                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/logout.jsp">退出</a>
+		                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/Logout">退出</a>
 		                                </div>
 		                            </li>
 	                            </c:when>

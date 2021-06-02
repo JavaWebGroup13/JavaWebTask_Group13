@@ -33,8 +33,14 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		// 是否已登录
+		response.sendRedirect("/JavaWebTask_Group13/login.jsp");
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		String isLogin = "false";
 		
 		Cookie[] cookies = request.getCookies();
@@ -56,30 +62,18 @@ public class Login extends HttpServlet {
 				session.setAttribute("isLogin", true);
 				session.setAttribute("user", user);
 				
-				// 设置已登录状态
 				Cookie cookie = new Cookie("isLogin", "true");
 				cookie.setMaxAge(60 * 60 * 24 * 7);
 				response.addCookie(cookie);
-				// 跳转到主页
+
 				response.sendRedirect("/JavaWebTask_Group13/center.jsp");
 			}else {
-				// 跳转到登录页面
+				
 				response.sendRedirect("/JavaWebTask_Group13/login.jsp");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		response.getWriter().append(u).append(p);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

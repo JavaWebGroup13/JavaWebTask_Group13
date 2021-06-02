@@ -1,8 +1,13 @@
 package dao;
 
 public class DaoFactory {
-	// ·µ»ØÒ»¸öÓÃÓÚ²Ù×÷ÓÃ»§µÄUserDaoImplÊµÀı
+    // è¿”å›ç”¨äºæ“ä½œç”¨æˆ·çš„å®ä¾‹
 	public static UserDao getUserDaoInstance() {
 		return new UserDaoImpl();
+	}
+
+	// è¿”å›ç”¨äºæ“ä½œæ–‡ç« çš„å®ä¾‹
+	public static ArticleDao getArticleDaoInstance() {
+		return new ArticleDaoImpl();
 	}
 }

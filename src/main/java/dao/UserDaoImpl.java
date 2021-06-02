@@ -12,7 +12,7 @@ import utils.JDBCUtils;
 public class UserDaoImpl implements UserDao{
 
 	@Override
-	public void insert(User user) throws Exception {
+	public int insert(User user) {
 		// TODO Auto-generated method stub
 		Connection con = null;
         PreparedStatement pstm = null;
@@ -28,19 +28,21 @@ public class UserDaoImpl implements UserDao{
             pstm.setString(4, user.getAvatar());
             pstm.setString(5, user.getProfile());
             pstm.executeUpdate();
+            return 0;
         } catch (Exception e)
         {
             // TODO Auto-generated catch block
-            System.out.println("≤Â»Î ˝æ›≤Ÿ◊˜“Ï≥£");
+            System.out.println("ÊèíÂÖ•Áî®Êà∑Â§±Ë¥•");
             e.printStackTrace();
         } finally
         {
         	JDBCUtils.relesae(pstm, con);
         }
+        return -1;
 	}
 
 	@Override
-	public void delete(int userid) throws Exception {
+	public int delete(int userid) {
 		// TODO Auto-generated method stub
 		Connection con = null;
         PreparedStatement pstm = null;
@@ -52,19 +54,21 @@ public class UserDaoImpl implements UserDao{
             pstm = con.prepareStatement(sql);
             pstm.setInt(1, userid);
             pstm.executeUpdate();
+            return 0;
         } catch (Exception e)
         {
             // TODO Auto-generated catch block
-            System.out.println("…æ≥˝ ˝æ›≤Ÿ◊˜“Ï≥£");
+            System.out.println("Âà†Èô§Áî®Êà∑Â§±Ë¥•");
             e.printStackTrace();
         } finally
         {
         	JDBCUtils.relesae(pstm, con);
         }
+        return -1;
 	}
 
 	@Override
-	public void update(User user) throws Exception {
+	public int update(User user) {
 		// TODO Auto-generated method stub
 		Connection con = null;
         PreparedStatement pstm = null;
@@ -81,33 +85,33 @@ public class UserDaoImpl implements UserDao{
             pstm.setString(5, user.getProfile());
             pstm.setString(6, user.getUsername());
             pstm.executeUpdate();
+            return 0;
         } catch (Exception e)
         {
             // TODO Auto-generated catch block
-            System.out.println("≤Â»Î ˝æ›≤Ÿ◊˜“Ï≥£");
+            System.out.println("Êõ¥Êñ∞Áî®Êà∑Â§±Ë¥•");
             e.printStackTrace();
         } finally
         {
         	JDBCUtils.relesae(pstm, con);
         }
+        return -1;
 	}
 
 	@Override
-	public User queryByUserid(int id) throws Exception {
+	public User query(int id) {
 		// TODO Auto-generated method stub
 		Connection con = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
         User user = null;
-        String sql = "select * from blog_user where id = 1";
+        String sql = "select * from blog_user where id = ?";
 
         try
         {
             con = JDBCUtils.getConnerction();
-            System.out.println(con);
             pstm = con.prepareStatement(sql);
-            System.out.println(pstm);
-//            pstm.setInt(1, id);
+            pstm.setInt(1, id);
             rs = pstm.executeQuery();
 
             while(rs.next()) {
@@ -118,27 +122,66 @@ public class UserDaoImpl implements UserDao{
             	user.setNickname(rs.getString(4));
             	user.setAvatar(rs.getString(5));
             	user.setProfile(rs.getString(6));
+            	return user;
             }
         } catch (Exception e)
         {
             // TODO Auto-generated catch block
-            System.out.println("≤È—Ø ˝æ›≤Ÿ◊˜“Ï≥£");
+            System.out.println("Ê†πÊçÆIdÊü•ËØ¢Áî®Êà∑Â§±Ë¥•");
             e.printStackTrace();
         } finally
         {
         	JDBCUtils.relesae(pstm, con);
         }
-		return user;
+		return null;
+	}
+	
+	@Override
+	public User query(String username) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        User user = null;
+        String sql = "select * from blog_user where Username = ?";
+
+        try
+        {
+            con = JDBCUtils.getConnerction();
+            pstm = con.prepareStatement(sql);
+            pstm.setString(1, username);
+            rs = pstm.executeQuery();
+
+            while(rs.next()) {
+            	user = new User();
+            	user.setId(rs.getInt(1));
+            	user.setUsername(rs.getString(2));
+            	user.setPassword(rs.getString(3));
+            	user.setNickname(rs.getString(4));
+            	user.setAvatar(rs.getString(5));
+            	user.setProfile(rs.getString(6));
+            	return user;
+            }
+        } catch (Exception e)
+        {
+            // TODO Auto-generated catch block
+            System.out.println("Ê†πÊçÆUsernameÊü•ËØ¢Áî®Êà∑Â§±Ë¥•");
+            e.printStackTrace();
+        } finally
+        {
+        	JDBCUtils.relesae(pstm, con);
+        }
+		return null;
 	}
 
 	@Override
-	public List queryAll() throws Exception {
+	public List<User> queryAll() {
 		// TODO Auto-generated method stub
 		Connection con = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
         List<User> users = new ArrayList<User>();
-        String sql = "insert into blog_user values (null, ?, md5(?), ?, ?, ?)";
+        String sql = "select * from  blog_user";
 
         try
         {
@@ -155,19 +198,22 @@ public class UserDaoImpl implements UserDao{
             	user.setProfile(rs.getString(6));
             	users.add(user);
             }
+            return users;
         } catch (Exception e)
         {
             // TODO Auto-generated catch block
-            System.out.println("≤Â»Î ˝æ›≤Ÿ◊˜“Ï≥£");
+            System.out.println("Êü•ËØ¢ÊâÄÊúâÁî®Êà∑Â§±Ë¥•");
             e.printStackTrace();
         } finally
         {
         	JDBCUtils.relesae(pstm, con);
         }
-		return users;
+		return null;
 	}
 
+	@Override
 	public User login(String username, String password) {
+		// TODO Auto-generated method stub
 		Connection con = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -191,16 +237,17 @@ public class UserDaoImpl implements UserDao{
             	user.setNickname(rs.getString(4));
             	user.setAvatar(rs.getString(5));
             	user.setProfile(rs.getString(6));
+            	return user;
             }
         } catch (Exception e)
         {
             // TODO Auto-generated catch block
-            System.out.println("≤È—Ø ˝æ›≤Ÿ◊˜“Ï≥£");
+            System.out.println("ÁôªÂΩïÂ§±Ë¥•");
             e.printStackTrace();
         } finally
         {
         	JDBCUtils.relesae(pstm, con);
         }
-		return user;
+		return null;
 	}
 }
