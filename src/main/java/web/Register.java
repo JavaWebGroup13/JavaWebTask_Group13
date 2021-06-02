@@ -1,4 +1,4 @@
-package servlet;
+package web;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Center
+ * Servlet implementation class Register
  */
-@WebServlet("/Center")
-public class Center extends HttpServlet {
+@WebServlet("/Register")
+public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Center() {
+    public Register() {
         super();
         // TODO Auto-generated constructor stub
     }

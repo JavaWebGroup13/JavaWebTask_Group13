@@ -1,4 +1,5 @@
 package utils;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,9 +10,9 @@ public class JDBCUtils {
 	public static Connection getConnerction() throws SQLException,
 	ClassNotFoundException{
 		Class.forName("com.mysql.jdbc.Driver");
-		String url="jdbc:mysql://localhost:3306/jdbc";
+		String url="jdbc:mysql://127.0.0.1:3306/javaweb_blog";
 		String username="root";
-		String password="itcast";
+		String password="root";
 		Connection conn=DriverManager.getConnection(url,username,password);
 		return conn;	
 	}

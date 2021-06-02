@@ -1,4 +1,4 @@
-package servlet;
+package web;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Search
+ * Servlet implementation class Details
  */
-@WebServlet("/Search")
-public class Search extends HttpServlet {
+@WebServlet("/Details")
+public class Details extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Search() {
+    public Details() {
         super();
         // TODO Auto-generated constructor stub
     }
