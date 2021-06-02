@@ -1,13 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<!-- 导入dao包下的所有类 -->
+<%@ page import="dao.*" %>
+<!-- 导入bean包下的所有类 -->
+<%@ page import="bean.*" %>
+
+
 <%@include file="head.jsp" %>
         <!-- home -->
         <div class="home row">
             <!-- 没有文章时 -->
             <div class="col-md-12">
                 <div class="alert alert-info" role="alert">
-                    还没有文章，快去写一篇吧！<a href="?route=write">写文章</a>
+                    还没有文章，快去写一篇吧！<a href="${pageContext.request.contextPath}/write.jsp">写文章</a>
                 </div>
             </div>
             <!-- 左侧 -->
@@ -85,9 +91,11 @@
                 <div class="card">
                     <img src="img/image.png" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h4 class="card-title">王荆茜</h4>
+                        <h4 class="card-title">
+                        	<%= user.getNickname() %>
+                        </h4>
                         <p class="card-text">做个俗人，见山是山，见水是水</p>
-                        <a type="button" href="?route=write" class="btn btn-primary btn-block">写文章</a>
+                        <a type="button" href="${pageContext.request.contextPath}/write.jsp" class="btn btn-primary btn-block">写文章</a>
                     </div>
                 </div>
 

@@ -1,14 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
 <%@include file="head.jsp" %>
         <div class="write">
             <!-- 没有登录 -->
-            <div class="alert alert-warning" role="alert">
-                无法写作，您没有权限，<a href="?route=login">点此登录</a>
-            </div>
+            <c:if test="!${isLogin}">
+	            <div class="alert alert-warning" role="alert">
+	                无法写作，您没有权限，<a href="${pageContext.request.contextPath}/login.jsp">点此登录</a>
+	            </div>
+            </c:if>
             <!-- 已登录 -->
-            <form>
+            <form method="POST" action="${pageContext.request.contextPath}/Write">
                 <div class="form-group">
                     <label for="exampleFormControlFile1">选择封面</label>
                     <input type="file" class="form-control-file" id="exampleFormControlFile1">
@@ -33,7 +37,7 @@
                     <label for="exampleFormControlTextarea1">文章正文</label>
                     <textarea id="editor" cols="20" rows="5" class="ckeditor form-control"></textarea>
                 </div>
-                <button type="submit" class="btn btn-secondary" style="width: 100px;">保存</button>
+                <button class="btn btn-secondary" style="width: 100px;">保存</button>
                 <button type="submit" class="btn btn-primary" style="width: 100px;">提交</button>
             </form>
             <script>

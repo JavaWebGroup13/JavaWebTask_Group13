@@ -10,10 +10,14 @@
             <div class="jumbotron">
                 <img src="img/image.png" alt="" style="width: 200px;height: 200px;" class="mb-4">
                 <div class="row">
-                    <h1 class="display-4 col-md-9">王荆茜</h1>
+                    <h1 class="display-4 col-md-9">
+                    	<%= user.getNickname() %>
+                    </h1>
                     <a href="" class="col-md-3" data-toggle="modal" data-target="#exampleModal">修改资料</a>
                 </div>
-                <p class="lead col-md-10">做个俗人，贪财好色，我就是王荆茜，王荆茜就是我！</p>
+                <p class="lead col-md-10">
+                	<%= user.getProfile() %>
+                </p>
                 <hr class="my-4">
                 <div class="row">
                     <div class="col-sm-4">

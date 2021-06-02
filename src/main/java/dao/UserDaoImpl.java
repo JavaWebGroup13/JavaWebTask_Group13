@@ -167,4 +167,40 @@ public class UserDaoImpl implements UserDao{
 		return users;
 	}
 
+	public User login(String username, String password) {
+		Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        User user = null;
+        String sql = "select * from blog_user where Username = ? and Password = md5(?)";
+
+        try
+        {
+            con = JDBCUtils.getConnerction();
+            pstm = con.prepareStatement(sql);
+            pstm.setString(1, username);
+            pstm.setString(2, password);
+            
+            rs = pstm.executeQuery();
+
+            while(rs.next()) {
+            	user = new User();
+            	user.setId(rs.getInt(1));
+            	user.setUsername(rs.getString(2));
+            	user.setPassword(rs.getString(3));
+            	user.setNickname(rs.getString(4));
+            	user.setAvatar(rs.getString(5));
+            	user.setProfile(rs.getString(6));
+            }
+        } catch (Exception e)
+        {
+            // TODO Auto-generated catch block
+            System.out.println("查询数据操作异常");
+            e.printStackTrace();
+        } finally
+        {
+        	JDBCUtils.relesae(pstm, con);
+        }
+		return user;
+	}
 }
