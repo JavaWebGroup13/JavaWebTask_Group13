@@ -1,6 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
+<!-- 导入dao包下的所有类 -->
+<%@ page import="dao.*" %>
+<!-- 导入bean包下的所有类 -->
+<%@ page import="bean.*" %>
+
+<%
+	boolean isLogin = (Boolean)session.getAttribute("isLogin");
+	
+	User user = (User)session.getAttribute("user");
+%>
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -29,29 +42,36 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="?route=home">主页</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/home.jsp">主页</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="?route=category">分类</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/category.jsp">分类</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="?route=about">关于</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/about.jsp">关于</a>
                             </li>
-                            <!-- 未登录 -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="?route=login">登录</a>
-                            </li>
-                            <!-- 已登录 -->
-                            <li class="nav-item dropdown ml-auto">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">511098094@qq.com</a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="?route=center">个人中心</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="?route=logout">退出</a>
-                                </div>
-                            </li>
+                            <c:choose>
+	                            <c:when test="${isLogin}"  >
+		                            <li class="nav-item dropdown ml-auto">
+		                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+		                                	<%= user.getUsername() %>
+		                                </a>
+		                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/center.jsp">个人中心</a>
+		                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/write.jsp">写文章</a>
+		                                    <div class="dropdown-divider"></div>
+		                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/logout.jsp">退出</a>
+		                                </div>
+		                            </li>
+	                            </c:when>
+	                            <c:otherwise>
+			                        <li class="nav-item">
+			                            <a class="nav-link" href="${pageContext.request.contextPath}/login.jsp">登录</a>
+			                        </li>
+	                            </c:otherwise>
+                            </c:choose>
                         </ul>
-                        <form class="form-inline my-2 my-lg-0" method="GET" action="index.html">
+                        <form class="form-inline my-2 my-lg-0" method="GET" action="${pageContext.request.contextPath}/search.jsp">
                             <input type="hidden" name="route" value="search">
                             <input class="form-control mr-sm-2" type="search" placeholder="文章/关键字" aria-label="Search">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>

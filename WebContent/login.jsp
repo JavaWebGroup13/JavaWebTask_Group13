@@ -3,15 +3,15 @@
 
 <%@include file="head.jsp" %>
         <!-- login -->
-        <div class="login" action="?route=center" method="get">
-            <form>
+        <div class="login">
+            <form action="${pageContext.request.contextPath}/Login" method="POST">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username">
+                    <input type="text" class="form-control" name="username" id="username">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password">
+                    <input type="password" class="form-control" name="password" id="password">
                 </div>
                 <p>
                     没有账号？<a href="?route=register">去注册</a>
