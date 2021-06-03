@@ -6,9 +6,13 @@
 <!-- 导入bean包下的所有类 -->
 <%@ page import="bean.*" %>
 
+<%@ page import="java.util.List" %>
 
 <%@include file="head.jsp" %>
         <!-- home -->
+        <%
+        List<Article> articles = (List<Article>)request.getAttribute("articles");
+        %>
         <div class="home row">
             <!-- 没有文章时 -->
             <c:if test="${ articles.size() == 0 }">

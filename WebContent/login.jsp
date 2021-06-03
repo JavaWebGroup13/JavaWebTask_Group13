@@ -14,7 +14,7 @@
                     <input type="password" class="form-control" name="password" id="password">
                 </div>
                 <p>
-                    没有账号？<a href="?route=register">去注册</a>
+                    没有账号？<a href="${pageContext.request.contextPath}/Register">去注册</a>
                 </p>
                 <button type="submit" class="btn btn-primary">登 录</button>
             </form>

@@ -8,7 +8,7 @@
                 成功检索到 2 条相关文章！
             </div>
             <div class="alert alert-warning" role="alert">
-                未查找到关于 “嘿嘿嘿” 的相关文章，换个关键词试试吧！
+                未查找到关于 <%= request.getParameter("keywords") %> 的相关文章，换个关键词试试吧！
             </div>
             <!-- 搜索结果 -->
             <div class="card mb-3">

@@ -40,7 +40,7 @@ public class Logout extends HttpServlet {
 		
 		Cookie cookie = new Cookie("isLogin", null);
 		response.addCookie(cookie);
-		response.sendRedirect("/JavaWebTask_Group13/logout.jsp");
+		request.getRequestDispatcher("logout.jsp").forward(request, response);
 		
 	}
 

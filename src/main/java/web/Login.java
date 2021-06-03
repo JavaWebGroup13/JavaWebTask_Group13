@@ -25,23 +25,24 @@ public class Login extends HttpServlet {
      */
     public Login() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.sendRedirect("/JavaWebTask_Group13/login.jsp");
+		// 转发到登录界面
+		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String isLogin = "false";
+
+		// 处理用户登录请求
+
+		/*String isLogin = "false";
 		
 		Cookie[] cookies = request.getCookies();
 		for(int i = 0; cookies != null && i < cookies.length; i++) {
@@ -49,30 +50,40 @@ public class Login extends HttpServlet {
 				isLogin = cookies[i].getValue();
 			}
 			System.out.println("cookie:" + cookies[i].getName());
-		}
+		}*/
 		
-		String u = request.getParameter("username");
-		String p = request.getParameter("password");
+		// 获取表单参数
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
 		
+		// 获取用于操作用户UserDao实例
 		UserDao userDao = DaoFactory.getUserDaoInstance();
-		try {
-			User user = userDao.login(u, p);
-			if (user != null) {
-				HttpSession session = request.getSession();
-				session.setAttribute("isLogin", true);
-				session.setAttribute("user", user);
-				
-				Cookie cookie = new Cookie("isLogin", "true");
-				cookie.setMaxAge(60 * 60 * 24 * 7);
-				response.addCookie(cookie);
 
-				response.sendRedirect("/JavaWebTask_Group13/center.jsp");
-			}else {
-				
-				response.sendRedirect("/JavaWebTask_Group13/login.jsp");
+		try {
+			// 使用username password进行登录
+			User user = userDao.login(username, password);
+
+			// 用户登录失败
+			if(user == null) {
+				// 跳转到登录界面
+				response.sendRedirect("/JavaWebTask_Group13/Login");
+				return;
 			}
+
+			// 用户登录成功
+			HttpSession session = request.getSession();
+			session.setAttribute("isLogin", true);
+			// 保存用户信息
+			session.setAttribute("user", user);
+			
+			// 设置客户端Cookie
+			Cookie cookie = new Cookie("isLogin", "true");
+			// 7天过期
+			cookie.setMaxAge(60 * 60 * 24 * 7);
+			response.addCookie(cookie);
+
+			response.sendRedirect("/JavaWebTask_Group13/Center");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

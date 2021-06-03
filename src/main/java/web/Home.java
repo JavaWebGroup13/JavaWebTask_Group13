@@ -53,17 +53,16 @@ public class Home extends HttpServlet {
 		ArticleDao articleDao = DaoFactory.getArticleDaoInstance();
 		List<Article> articles = new ArrayList<Article>();
 		
-		if("true".equals(isLogin)) {
+		if("true".equals(isLogin) && user != null) {
 			// 已登录，查询自己的文章
 			articles = articleDao.queryAll(user.getId());
 		}else {
 			// 否则，查询所有文章
 			articles = articleDao.queryAll();
 		}
-		System.out.println(articles.size() + " lenght");
-		session.setAttribute("articles", articles);
-		response.sendRedirect("/JavaWebTask_Group13/index.jsp");
-	
+		System.out.println("Home：检索到文章数量 " + articles.size() + " 条");
+		request.setAttribute("articles", articles);
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	/**

@@ -50,13 +50,13 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/home.jsp">主页</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/Home">主页</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/category.jsp">分类</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/Category">分类</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/about.jsp">关于</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/About">关于</a>
                             </li>
                             <c:choose>
 	                            <c:when test="${isLogin}"  >
@@ -65,8 +65,8 @@
 		                                	<%=  user.getUsername() %>
 		                                </a>
 		                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/center.jsp">个人中心</a>
-		                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/write.jsp">写文章</a>
+		                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/Center">个人中心</a>
+		                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/Write">写文章</a>
 		                                    <div class="dropdown-divider"></div>
 		                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/Logout">退出</a>
 		                                </div>
@@ -74,14 +74,13 @@
 	                            </c:when>
 	                            <c:otherwise>
 			                        <li class="nav-item">
-			                            <a class="nav-link" href="${pageContext.request.contextPath}/login.jsp">登录</a>
+			                            <a class="nav-link" href="${pageContext.request.contextPath}/Login">登录</a>
 			                        </li>
 	                            </c:otherwise>
                             </c:choose>
                         </ul>
-                        <form class="form-inline my-2 my-lg-0" method="GET" action="${pageContext.request.contextPath}/search.jsp">
-                            <input type="hidden" name="route" value="search">
-                            <input class="form-control mr-sm-2" type="search" placeholder="文章/关键字" aria-label="Search">
+                        <form class="form-inline my-2 my-lg-0" method="GET" action="${pageContext.request.contextPath}/Search">
+                            <input name="keywords" class="form-control mr-sm-2" type="search" placeholder="文章/关键字" aria-label="Search">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
                         </form>
                     </div>
