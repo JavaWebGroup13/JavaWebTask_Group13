@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="card" style="width: 18rem;">
-                    <img src="http://q1.qlogo.cn/g?b=qq&nk=1813167098&s=640" class="card-img-top" alt="...">
+                    <img src="https://avatars.githubusercontent.com/u/82643113?s=96&v=4" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">武文龙</h5>
                         <p class="card-text">分配任务：SQL语句编写、撰写项目文档、后台代码编写</p>

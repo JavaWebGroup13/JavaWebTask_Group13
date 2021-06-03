@@ -27,22 +27,10 @@ public interface CategoryDao{
     public int update(Category category);
     
     /**
-     * 根据Id查询类别
-     * @param categoryid
+     * 根据AuthorId查询类别
+     * @param authorid
      * @return Category
      */
-    public Category query(int categoryid);
+    public List<Category> queryAll(int authorid);
     
-    /**
-     * 根据Title查询用户
-     * @param title
-     * @return Category
-     */
-    public Category query(String title);
-    
-    /**
-     * 查询所有用户
-     * @return List user
-     */
-    public List<Category> queryAll();
 }

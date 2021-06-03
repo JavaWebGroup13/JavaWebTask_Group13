@@ -10,15 +10,12 @@
 
 <%@include file="head.jsp" %>
         <!-- home -->
-        <%
-        List<Article> articles = (List<Article>)request.getAttribute("articles");
-        %>
         <div class="home row">
             <!-- 没有文章时 -->
             <c:if test="${ articles.size() == 0 }">
             <div class="col-md-12">
                 <div class="alert alert-info" role="alert">
-                    还没有文章，快去写一篇吧！<a href="${pageContext.request.contextPath}/write.jsp">写文章</a>
+                    还没有文章，快去写一篇吧！<a href="${pageContext.request.contextPath}/Write">写文章</a>
                 </div>
             </div>
             </c:if>
@@ -27,10 +24,10 @@
                 <!-- 第一篇文章 -->
                 <c:if test="${ articles.size() > 0 }">
                 <div class="card mb-3">
-                    <img src="${ articles.get(0).getCover() }" class="card-img-top" alt="...">
+                    <img src="${ articles.get(0).getCover() }" style="max-height: 300px;" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">
-                            <a href="?route=details" role="button">
+                            <a href="${pageContext.request.contextPath}/Details?id=${articles.get(0).getId()}" role="button">
                             	${ articles.get(0).getTitle() }
                             </a>
                         </h5>
@@ -49,10 +46,10 @@
                 	<c:forEach var="article" items="${ articles }" begin="1">
                     <div class="col mb-4">
                         <div class="card">
-                            <img src="${ article.getCover() }" class="card-img-top" alt="...">
+                            <img src="${ article.getCover() }" style="max-height: 300px;" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    <a href="?route=details" role="button">
+                                    <a href="${pageContext.request.contextPath}/Details?id=${article.getId()}" role="button">
                                     	${ article.getTitle() }
                                     </a>
                                 </h5>
@@ -90,16 +87,16 @@
             <div class="col-md-3">
                 <!-- 个人信息 -->
                 <div class="card">
-                	<img src="${ pageContext.request.contextPath }${ isLogin ? user.getAvatar() : '/static/img/a.jpg' }" class="card-img-top" alt="...">
+                	<img src="${ user != null ? user.getAvatar() : '' }" class="card-img-top" alt="...">
                     <div class="card-body">
 	                    <h4 class="card-title">
-	                        <%= user != null ? user.getNickname() : "未登录" %>
+	                    	${ user != null ? user.getNickname() : "未登录" }
 	                    </h4>
 	                    <p class="card-text">
-	                        <%= user != null ? user.getProfile() : "登录后可进行更多操作" %>
+	                        ${ user != null ? user.getProfile() : "登录后可进行更多操作" }
 	                    </p>
-	                    <a type="button" href='${pageContext.request.contextPath}/${isLogin ? "write.jsp" : "login.jsp"}' class="btn btn-primary btn-block">
-	                    	<%= user != null ? "写文章" : "去登录" %>
+	                    <a type="button" href='${pageContext.request.contextPath}/${user != null ? "Write" : "Login"}' class="btn btn-primary btn-block">
+	                    	${ user != null ? "写文章" : "去登录" }
 	                    </a>
                     </div>
                 </div>

@@ -8,10 +8,6 @@
 <!-- 导入bean包下的所有类 -->
 <%@ page import="bean.*" %>
 
-<%
-	User user = (User)session.getAttribute("user");
-%>
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -52,7 +48,7 @@
 	                            <c:when test="${user != null}"  >
 		                            <li class="nav-item dropdown ml-auto">
 		                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-		                                	<%= user.getUsername() %>
+		                                	${ user.getUsername() }
 		                                </a>
 		                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 		                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/Center">个人中心</a>
@@ -69,23 +65,15 @@
 	                            </c:otherwise>
                             </c:choose>
                         </ul>
-                        <form class="form-inline my-2 my-lg-0" method="GET" action="${pageContext.request.contextPath}/Search">
+                        <form class="form-inline my-2 my-lg-0" method="POST" action="${pageContext.request.contextPath}/Search">
                             <input name="keywords" class="form-control mr-sm-2" type="search" placeholder="文章/关键字" aria-label="Search">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
                         </form>
                     </div>
                 </nav>
             </div>
-
-            <!-- 面包屑导航 -->
-            <nav aria-label="breadcrumb" style="margin-top: 66px;">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="?route=home">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">login</li>
-                </ol>
-            </nav>
         </div>
     </div>
 
     <!-- body -->
-    <div class="container body">
+    <div class="container body" style="margin-top: 80px;">

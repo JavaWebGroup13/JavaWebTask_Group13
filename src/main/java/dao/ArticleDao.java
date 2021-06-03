@@ -27,7 +27,7 @@ public interface ArticleDao {
     public int update(Article article);
 
     /**
-     * 根据AuthorId、Id查询文章
+     * 根据ArticleId查询文章
      * @param authorid
      * @return Article
      */
@@ -35,10 +35,25 @@ public interface ArticleDao {
 
     /**
      * 根据AuthorId获取所有文章
-     * @param Article
+     * @param authorid
      * @return List
      */
     public List<Article> queryAll(int authorid);
+    
+    /**
+     * 根据AuthorId CategoryId获取所有文章
+     * @param authorid categoryid
+     * @return List
+     */
+    public List<Article> queryAll(int authorid, int categoryid);
+    
+    
+    /**
+     * 根据Title查询所有文章
+     * @param Title
+     * @return List
+     */
+    public List<Article> queryAll(String title);
     
     /**
      * 获取所有文章

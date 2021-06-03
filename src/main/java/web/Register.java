@@ -78,11 +78,11 @@ public class Register extends HttpServlet {
 		int res = userDao.insert(user);
 		if(res == 0) {
 			request.setAttribute("code", 0);
-			request.setAttribute("msg", "恭喜您，注册成功！");
+			request.setAttribute("msg", "注册成功！3s后跳转到登录界面");
 			request.getRequestDispatcher("register.jsp").forward(request, response);
 		}else {
 			request.setAttribute("code", -1);
-			request.setAttribute("msg", "注册失败，请联系开发者");
+			request.setAttribute("msg", "注册失败！，请联系开发者");
 			request.getRequestDispatcher("register.jsp").forward(request, response);
 		}
 	}

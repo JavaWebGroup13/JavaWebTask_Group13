@@ -10,4 +10,9 @@ public class DaoFactory {
 	public static ArticleDao getArticleDaoInstance() {
 		return new ArticleDaoImpl();
 	}
+	
+	// 返回用于操作文章类别的实例
+	public static CategoryDao getCategoryDaoInstance() {
+		return new CategoryDaoImpl();
+	}
 }

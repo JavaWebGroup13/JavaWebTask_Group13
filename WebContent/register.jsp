@@ -3,16 +3,14 @@
 
 <%@include file="head.jsp" %>
         <!-- register -->
-        <%
-        // 获取
-        int code = (Integer)request.getAttribute("code");
-        String msg = (String)request.getAttribute("msg");
-        %>
         <!-- 用户点击过注册了，显示注册结果 -->
         <c:if test="${ code != null }">
-        <div class="alert alert-${ code == 0 ? 'success' : 'danger' }" role="alert">
-			<%= msg %>
-		</div>
+        	<c:if test="${ code == 0 }">
+        		<% response.setHeader("Refresh", "3;URL=/JavaWebTask_Group13/Login"); %>
+        	</c:if>
+	        <div class="alert alert-${ code == 0 ? 'success' : 'danger' }" role="alert">
+				${ msg }
+			</div>
 		</c:if>
          <div class="register">
             <form action="${pageContext.request.contextPath}/Register" method="POST">

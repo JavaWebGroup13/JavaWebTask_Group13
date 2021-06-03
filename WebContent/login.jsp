@@ -3,6 +3,15 @@
 
 <%@include file="head.jsp" %>
         <!-- login -->
+        <!-- 用户点击过登录了，显示登录结果 -->
+        <c:if test="${ code != null }">
+        	<c:if test="${ code == 0 }">
+        		<% response.setHeader("Refresh", "3;URL=/JavaWebTask_Group13/Center"); %>
+        	</c:if>
+	        <div class="alert alert-${ code == 0 ? 'success' : 'danger' }" role="alert">
+				${ msg }
+			</div>
+		</c:if>
         <div class="login">
             <form action="${pageContext.request.contextPath}/Login" method="POST">
                 <div class="form-group">
