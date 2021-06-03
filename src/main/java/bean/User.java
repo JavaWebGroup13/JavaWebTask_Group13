@@ -1,5 +1,5 @@
 package bean;
-//”√ªß
+
 public class User {
 	private int Id;
 	private String Username;

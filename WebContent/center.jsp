@@ -4,19 +4,17 @@
 <%@include file="head.jsp" %>
         <!-- center -->
         <div class="center">
-            <!-- 统计 -->
-            
             <!-- 信息 -->
             <div class="jumbotron">
-                <img src="img/image.png" alt="" style="width: 200px;height: 200px;" class="mb-4">
+                <img src="${ pageContext.request.contextPath }${ user != null ? user.getAvatar() : '/static/img/a.jpg' }" alt="" style="width: 200px;height: 200px;" class="mb-4">
                 <div class="row">
                     <h1 class="display-4 col-md-9">
-                    	<%= user.getNickname() %>
+                    	${ user != null ? user.getNickname() : "未登录" }
                     </h1>
                     <a href="" class="col-md-3" data-toggle="modal" data-target="#exampleModal">修改资料</a>
                 </div>
                 <p class="lead col-md-10">
-                	<%= user.getProfile() %>
+                	${ user != null ? user.getProfile() : "登录后可进行更多操作" }
                 </p>
                 <hr class="my-4">
                 <div class="row">

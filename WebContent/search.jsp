@@ -3,35 +3,38 @@
 
 <%@include file="head.jsp" %>
         <!-- search -->
+        <%
+        // 获取搜索结果
+        int code = (Integer)request.getAttribute("code");
+        String msg = (String)request.getAttribute("msg");
+        %>
         <div class="search">
-            <div class="alert alert-success" role="alert">
-                成功检索到 2 条相关文章！
+        	<!-- 搜索结果提示 -->
+            <div class="alert alert-${ code == 0 ? 'success' : 'warning'}" role="alert">
+                <%= msg %>
             </div>
-            <div class="alert alert-warning" role="alert">
-                未查找到关于 “嘿嘿嘿” 的相关文章，换个关键词试试吧！
-            </div>
+            
             <!-- 搜索结果 -->
+            <c:forEach var="article" items="${ articles }">
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <a href="?route=details">Card title</a>
+                        <a href="${pageContext.request.contextPath}/Details?id=${article.getId()}">
+                        	${ article.getTitle() }
+                        </a>
                     </h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                     <p class="card-text">
-                        <small class="text-muted">Last updated 3 mins ago</small>
+							${ article.getContent() }
+					</p>
+                    <p class="card-text">
+                        <small class="text-muted">
+							${ article.getCreatedTime() }
+						</small>
                     </p>
-                    
                 </div>
             </div>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <a href="?route=details">Card title</a>
-                    </h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
+            </c:forEach>
+            
             <!-- 分页 -->
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">

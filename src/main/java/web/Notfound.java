@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Center
+ * Servlet implementation class Notfound
  */
-@WebServlet("/Center")
-public class Center extends HttpServlet {
+@WebServlet("/Notfound")
+public class Notfound extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Center() {
+    public Notfound() {
         super();
     }
 
@@ -25,7 +25,7 @@ public class Center extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("center.jsp").forward(request, response);
+		request.getRequestDispatcher("notfound.jsp").forward(request, response);
 	}
 
 	/**
