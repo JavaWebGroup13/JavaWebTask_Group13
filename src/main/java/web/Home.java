@@ -30,38 +30,47 @@ public class Home extends HttpServlet {
      */
     public Home() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String isLogin = "false";
 		
-		Cookie[] cookies = request.getCookies();
-		for(int i = 0; cookies != null && i < cookies.length; i++) {
-			if("isLogin".equals(cookies[i].getName())) {
-				isLogin = cookies[i].getValue();
-			}
-		}
-		
+		/*
+		 * String isLogin = "false";
+		 * 
+		 * Cookie[] cookies = request.getCookies(); for(int i = 0; cookies != null && i
+		 * < cookies.length; i++) { if("isLogin".equals(cookies[i].getName())) { isLogin
+		 * = cookies[i].getValue(); } }
+		 */
+
 		HttpSession session = request.getSession();
+		
+		// 获取session中的属性
 		User user = (User)session.getAttribute("user");
-		
+
+		// 获取用于操作文章的ArticleDao实列
 		ArticleDao articleDao = DaoFactory.getArticleDaoInstance();
-		List<Article> articles = new ArrayList<Article>();
 		
-		if("true".equals(isLogin) && user != null) {
+		// 存放查询到的文章列表
+		List<Article> articles = null;
+		
+		if(user != null) {
 			// 已登录，查询自己的文章
+			session.setAttribute("isLogin", true);
 			articles = articleDao.queryAll(user.getId());
+			System.out.println("查询自己的文章");
 		}else {
 			// 否则，查询所有文章
+			session.setAttribute("isLogin", false);
 			articles = articleDao.queryAll();
+			System.out.println("查询所有的文章");
 		}
 		System.out.println("Home：检索到文章数量 " + articles.size() + " 条");
 		request.setAttribute("articles", articles);
+		
+		// 请求转发到index.jsp，将查询到的文章展示出来
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
@@ -69,7 +78,6 @@ public class Home extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -31,7 +31,7 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 转发到登录界面
+		// 请求转发到登录界面
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 
@@ -40,18 +40,6 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// 处理用户登录请求
-
-		/*String isLogin = "false";
-		
-		Cookie[] cookies = request.getCookies();
-		for(int i = 0; cookies != null && i < cookies.length; i++) {
-			if("isLogin".equals(cookies[i].getName())) {
-				isLogin = cookies[i].getValue();
-			}
-			System.out.println("cookie:" + cookies[i].getName());
-		}*/
-		
 		// 获取表单参数
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -60,21 +48,19 @@ public class Login extends HttpServlet {
 		UserDao userDao = DaoFactory.getUserDaoInstance();
 
 		try {
-			// 使用username password进行登录
+			// 登录
 			User user = userDao.login(username, password);
 
-			// 用户登录失败
+			// 用户登录失败，跳转到登录界面
 			if(user == null) {
-				// 跳转到登录界面
 				response.sendRedirect("/JavaWebTask_Group13/Login");
 				return;
 			}
 
 			// 用户登录成功
-			HttpSession session = request.getSession();
-			session.setAttribute("isLogin", true);
+			request.getSession().setAttribute("isLogin", true);
 			// 保存用户信息
-			session.setAttribute("user", user);
+			request.getSession().setAttribute("user", user);
 			
 			// 设置客户端Cookie
 			Cookie cookie = new Cookie("isLogin", "true");
@@ -82,6 +68,7 @@ public class Login extends HttpServlet {
 			cookie.setMaxAge(60 * 60 * 24 * 7);
 			response.addCookie(cookie);
 
+			// 跳转到用户中心
 			response.sendRedirect("/JavaWebTask_Group13/Center");
 		} catch (Exception e) {
 			e.printStackTrace();

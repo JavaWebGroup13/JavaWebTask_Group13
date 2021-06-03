@@ -9,17 +9,7 @@
 <%@ page import="bean.*" %>
 
 <%
-	boolean isLogin = false;
-	User user = null;
-	
-	try{
-		isLogin = (Boolean)session.getAttribute("isLogin");
-		user = (User)session.getAttribute("user");
-	}catch(Exception e){
-		System.out.println("获取session参数错误");
-		e.printStackTrace();
-	}
-	
+	User user = (User)session.getAttribute("user");
 %>
 
 <!DOCTYPE html>
@@ -59,10 +49,10 @@
                                 <a class="nav-link" href="${pageContext.request.contextPath}/About">关于</a>
                             </li>
                             <c:choose>
-	                            <c:when test="${isLogin}"  >
+	                            <c:when test="${user != null}"  >
 		                            <li class="nav-item dropdown ml-auto">
 		                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-		                                	<%=  user.getUsername() %>
+		                                	<%= user.getUsername() %>
 		                                </a>
 		                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 		                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/Center">个人中心</a>

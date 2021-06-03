@@ -93,13 +93,13 @@
                 	<img src="${ pageContext.request.contextPath }${ isLogin ? user.getAvatar() : '/static/img/a.jpg' }" class="card-img-top" alt="...">
                     <div class="card-body">
 	                    <h4 class="card-title">
-	                        <%= isLogin ? user.getNickname() : "未登录" %>
+	                        <%= user != null ? user.getNickname() : "未登录" %>
 	                    </h4>
 	                    <p class="card-text">
-	                        <%= isLogin ? user.getProfile() : "登录后可进行更多操作" %>
+	                        <%= user != null ? user.getProfile() : "登录后可进行更多操作" %>
 	                    </p>
 	                    <a type="button" href='${pageContext.request.contextPath}/${isLogin ? "write.jsp" : "login.jsp"}' class="btn btn-primary btn-block">
-	                    	<%= isLogin ? "写文章" : "去登录" %>
+	                    	<%= user != null ? "写文章" : "去登录" %>
 	                    </a>
                     </div>
                 </div>

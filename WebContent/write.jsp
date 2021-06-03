@@ -6,7 +6,7 @@
 <%@include file="head.jsp" %>
         <div class="write">
             <!-- 没有登录 -->
-            <c:if test="${!isLogin}">
+            <c:if test="${!user}">
 	            <div class="alert alert-warning" role="alert">
 	                无法写作，您没有权限，<a href="${pageContext.request.contextPath}/login.jsp">点此登录</a>
 	            </div>
