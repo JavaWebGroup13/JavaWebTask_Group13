@@ -13,7 +13,6 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public int insert(User user) {
-		// TODO Auto-generated method stub
 		Connection con = null;
         PreparedStatement pstm = null;
         String sql = "insert into blog_user values (null, ?, md5(?), ?, ?, ?)";
@@ -72,7 +71,7 @@ public class UserDaoImpl implements UserDao{
 		// TODO Auto-generated method stub
 		Connection con = null;
         PreparedStatement pstm = null;
-        String sql = "updata blog_user SET Username=?,Password=?,Nickname=?,Avatar=?,Profile=? where Username=?";
+        String sql = "update blog_user SET Username=?,Password=?,Nickname=?,Avatar=?,Profile=? where id=?";
 
         try
         {
@@ -83,7 +82,7 @@ public class UserDaoImpl implements UserDao{
             pstm.setString(3, user.getNickname());
             pstm.setString(4, user.getAvatar());
             pstm.setString(5, user.getProfile());
-            pstm.setString(6, user.getUsername());
+            pstm.setInt(6, user.getId());
             pstm.executeUpdate();
             return 0;
         } catch (Exception e)

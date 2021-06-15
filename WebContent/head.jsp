@@ -2,11 +2,6 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    
-<!-- 导入dao包下的所有类 -->
-<%@ page import="dao.*" %>
-<!-- 导入bean包下的所有类 -->
-<%@ page import="bean.*" %>
 
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -65,7 +60,7 @@
 	                            </c:otherwise>
                             </c:choose>
                         </ul>
-                        <form class="form-inline my-2 my-lg-0" method="POST" action="${pageContext.request.contextPath}/Search">
+                        <form class="form-inline my-2 my-lg-0" method="GET" action="${pageContext.request.contextPath}/Search">
                             <input name="keywords" class="form-control mr-sm-2" type="search" placeholder="文章/关键字" aria-label="Search">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
                         </form>

@@ -15,4 +15,9 @@ public class DaoFactory {
 	public static CategoryDao getCategoryDaoInstance() {
 		return new CategoryDaoImpl();
 	}
+	
+	// 返回用于操作评论的实例
+	public static CommentDao getCommentDaoInstance() {
+		return new CommentDaoImpl();
+	}
 }

@@ -39,4 +39,11 @@ public interface CommentDao{
      * @return 0 成功 -1 失败
      */
     public List<Comment> queryAll(int articleid);
+    
+    /**
+     * 根据authorid获取总的评论数量
+     * @param authorid
+     * @return int
+     */
+    public int queryAllCounts(int authorid);
 }

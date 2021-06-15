@@ -45,33 +45,44 @@ public class Home extends HttpServlet {
 		 * = cookies[i].getValue(); } }
 		 */
 
-		HttpSession session = request.getSession();
+		int page = 1;
+		try{
+			page = Integer.parseInt(request.getParameter("page"));
+		}catch(Exception e) {
+		}
 		
-		// 获取session中的属性
-		User user = (User)session.getAttribute("user");
-
 		// 获取用于操作文章的ArticleDao实列
 		ArticleDao articleDao = DaoFactory.getArticleDaoInstance();
 		
+		// 查询文章总数量
+		float article_conut = (float) articleDao.queryAllCounts();
+		// 向上取整
+		int page_count = (int) Math.ceil(article_conut / 2);
+		System.out.println("Home page_count:" + page_count);
+		System.out.println("Home article_conut:" + article_conut);
+		request.setAttribute("page_count", page_count);
+		request.setAttribute("page", page);
+		
+		
 		// 存放查询到的文章列表
 		List<Article> articles = null;
+
+		// 存放查询到的最新更新文章列表
+		List<Article> articles_lately = null;
 		
-		if(user != null) {
-			// 已登录，查询自己的文章
-			session.setAttribute("isLogin", true);
-			articles = articleDao.queryAll(user.getId());
-			System.out.println("查询自己的文章");
-		}else {
-			// 否则，查询所有文章
-			session.setAttribute("isLogin", false);
-			articles = articleDao.queryAll();
-			System.out.println("查询所有的文章");
-		}
+		// 查询文章
+		articles = articleDao.queryAllWithPage((page - 1) * 2, 2);
+		
+		// 查询最新的N条文章
+		articles_lately = articleDao.queryByUpdateTime(5);
+		
+		System.out.println("查询所有的文章和最新的5条文章");
+
 		System.out.println("Home：检索到文章数量 " + articles.size() + " 条");
 		request.setAttribute("articles", articles);
-		
+		request.setAttribute("articles_lately", articles_lately);
 		// 请求转发到index.jsp，将查询到的文章展示出来
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		request.getRequestDispatcher("home.jsp").forward(request, response);
 	}
 
 	/**

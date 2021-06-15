@@ -38,7 +38,7 @@ public interface ArticleDao {
      * @param authorid
      * @return List
      */
-    public List<Article> queryAll(int authorid);
+    public List<Article> queryAllByAuthorId(int authorid);
     
     /**
      * 根据AuthorId CategoryId获取所有文章
@@ -47,6 +47,26 @@ public interface ArticleDao {
      */
     public List<Article> queryAll(int authorid, int categoryid);
     
+    /**
+     * 根据UpdateTime获取最新的N条文章
+     * @param count
+     * @return List
+     */
+    public List<Article> queryByUpdateTime(int count);
+    
+    /**
+     * 根据authorid、UpdateTime获取最新的N条文章
+     * @param count
+     * @return List
+     */
+    public List<Article> queryByUpdateTime(int authorid, int count);
+    
+    /**
+     * 根据Category_Id获取相关的N条文章
+     * @param count
+     * @return List
+     */
+    public List<Article> queryByCategory(int category, int count);
     
     /**
      * 根据Title查询所有文章
@@ -57,8 +77,22 @@ public interface ArticleDao {
     
     /**
      * 获取所有文章
-     * @param Article
+     * @param start count
      * @return List
      */
-    public List<Article> queryAll();
+    public List<Article> queryAllWithPage(int start, int count);
+    
+    /**
+     * 根据authorid获取总的文章数量
+     * @param authorid
+     * @return int
+     */
+    public int queryAllCounts(int authorid);
+    
+
+    /**
+     * 获取总的文章数量
+     * @return int
+     */
+    public int queryAllCounts();
 }
