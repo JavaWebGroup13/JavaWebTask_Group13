@@ -33,4 +33,10 @@ public interface CategoryDao{
      */
     public List<Category> queryAll(int authorid);
     
+    /**
+     * 根据authorid获取总的类别数量
+     * @param authorid
+     * @return int
+     */
+    public int queryAllCounts(int authorid);
 }

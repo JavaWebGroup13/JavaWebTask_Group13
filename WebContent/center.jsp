@@ -6,22 +6,22 @@
         <div class="center">
             <!-- 信息 -->
             <div class="jumbotron">
-                <img src="${ pageContext.request.contextPath }${ user != null ? user.getAvatar() : '/static/img/a.jpg' }" alt="" style="width: 200px;height: 200px;" class="mb-4">
+                <img src="${ user.getAvatar() }" class="mb-4 rounded-circle" alt="..." style="width: 200px;height: 200px;">
                 <div class="row">
                     <h1 class="display-4 col-md-9">
-                    	${ user != null ? user.getNickname() : "未登录" }
+                    	${ user.getNickname() }
                     </h1>
                     <a href="" class="col-md-3" data-toggle="modal" data-target="#exampleModal">修改资料</a>
                 </div>
                 <p class="lead col-md-10">
-                	${ user != null ? user.getProfile() : "登录后可进行更多操作" }
+                	${ user.getProfile() }
                 </p>
                 <hr class="my-4">
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="card">
                             <div class="card-body">
-                                <p class="card-text text-center">32篇</p>
+                                <p class="card-text text-center">${ articleCounts }篇</p>
                                 <h5 class="card-title text-center">文章</h5>
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                     <div class="col-sm-4">
                         <div class="card">
                             <div class="card-body">
-                                <p class="card-text text-center">332</p>
+                                <p class="card-text text-center">${ commentCounts }条</p>
                                 <h5 class="card-title text-center">评论</h5>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                     <div class="col-sm-4">
                         <div class="card">
                             <div class="card-body">
-                                <p class="card-text text-center">4个</p>
+                                <p class="card-text text-center">${ categoryCounts }个</p>
                                 <h5 class="card-title text-center">类别</h5>
                             </div>
                         </div>
@@ -54,20 +54,20 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form>
+                                <form id="changeInfo" action="${pageContext.request.contextPath}/Center" method="POST">
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">昵称</label>
-                                        <input type="text" class="form-control" id="recipient-name">
+                                        <input name="nick" type="text" class="form-control" id="recipient-name" value="${ user.getNickname() }">
                                     </div>
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">简介</label>
-                                        <textarea class="form-control" id="message-text"></textarea>
+                                        <textarea name="profile" class="form-control" id="message-text">${ user.getProfile() }</textarea>
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                <button type="button" class="btn btn-primary">保 存</button>
+                                <button onclick="changeInfo.submit()" type="submit" class="btn btn-primary">保 存</button>
                             </div>
                         </div>
                     </div>

@@ -14,8 +14,27 @@ public class CategoryDaoImpl implements CategoryDao{
 
 	@Override
 	public int insert(Category category) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection con = null;
+        PreparedStatement pstm = null;
+        String sql = "insert into blog_category values (null, ?, ?)";
+
+        try
+        {
+            con = JDBCUtils.getConnerction();
+            pstm = con.prepareStatement(sql);
+            pstm.setString(1, category.getTitle());
+            pstm.setInt(2, category.getAuthorId());
+            pstm.executeUpdate();
+            return 0;
+        } catch (Exception e)
+        {
+            System.out.println("插入类别失败");
+            e.printStackTrace();
+        } finally
+        {
+        	JDBCUtils.relesae(pstm, con);
+        }
+		return -1;
 	}
 
 	@Override
@@ -62,6 +81,35 @@ public class CategoryDaoImpl implements CategoryDao{
         	JDBCUtils.relesae(pstm, con);
         }
 		return null;
+	}
+
+	@Override
+	public int queryAllCounts(int authorid) {
+		Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        String sql = "select count(1) from blog_category where Author_Id = ?";
+        int res = 0;
+        try
+        {
+            con = JDBCUtils.getConnerction();
+            pstm = con.prepareStatement(sql);
+            pstm.setInt(1, authorid);
+            rs = pstm.executeQuery();
+
+            while(rs.next()) {
+            	res = rs.getInt(1);
+            }
+            return res;
+        } catch (Exception e)
+        {
+            System.out.println("根据Id查询类别总数失败");
+            e.printStackTrace();
+        } finally
+        {
+        	JDBCUtils.relesae(pstm, con);
+        }
+		return 0;
 	}
 
 }

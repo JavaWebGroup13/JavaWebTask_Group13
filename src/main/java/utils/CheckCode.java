@@ -1,6 +1,10 @@
 package utils;
 import java.io.*;
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import java.awt.*;
 import java.awt.image.*;
 import javax.imageio.ImageIO;
@@ -8,10 +12,10 @@ public class CheckCode {
    private static int WIDTH=60;
    private static int HEIGHT=20;
    public void doGet(HttpServletRequest request,HttpServletResponse response)
-        throws ServletException,IOException(
+        throws ServletException,IOException{
         		HttpSession session = request.getSession();
-        		reresponse.setContenType("image/jpeg");
-        		ServletOutputStream sos = response.getOutoutStream();
+        		response.setContentType("image/jpeg");
+        		ServletOutputStream sos = response.getOutputStream();
         		response.setHeader("pragma","No-cache");
         		response.setHeader("Cache-Control","No-cache");
         		response.setDateHeader("Expires",0);
@@ -19,7 +23,7 @@ public class CheckCode {
         				new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
         		Graphics g = image.getGraphics();
         		char[] rands = generateCheckCode();
-        		drawBackground(g);
+        		drawBackgound(g);
         		drawRands(g,rands);
                 g.dispose();
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();

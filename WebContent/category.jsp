@@ -5,13 +5,14 @@
         <!-- category类别 -->
         <div class="category">
         	<!-- 查询类别结果提示 -->
-        	<c:if test="${ code1 != null && code1 != 0 }" >
-	            <div class="alert alert-warning" role="alert">
+        	<c:if test="${ code1 != null }" >
+	            <div class="alert alert-${ code1 == 0 ? 'success' : 'warning' }" role="alert">
 	                ${ msg1 }
 	            </div>
             </c:if>
+            <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#exampleModal">增加类别</button>
             <!-- 展示所有类别 -->
-            <ul class="nav nav-pills mb-3 mb-2">
+            <ul class="nav nav-tabs">
             	<c:forEach var="category" items="${ categorys }">
                 <li class="nav-item">
                     <a class="nav-link ${ category.getId() == which ? 'active' : '' }" href="${pageContext.request.contextPath}/Category?id=${ category.getId() }">
@@ -36,7 +37,7 @@
                         </a>
                     </h5>
                     <p class="card-text">
-                    	${ article.getContent() }
+                    	${ article.getSummary() }
                     </p>
                     <p class="card-text"><small class="text-muted">
                     	${ article.getUpdateTime() }
@@ -44,23 +45,30 @@
                 </div>
             </div>
             </c:forEach>
-            <!-- 分页 -->
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+        </div>
+        <!-- 增加类别的弹出框 -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">增加类别</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="postCategory" action="${pageContext.request.contextPath}/Category" method="POST">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">标题</label>
+                                <input name="title" type="text" class="form-control" id="recipient-name">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button onclick="postCategory.submit()" type="submit" class="btn btn-primary">添 加</button>
+                    </div>
+                </div>
+            </div>
         </div>
 <%@include file="foot.jsp" %>

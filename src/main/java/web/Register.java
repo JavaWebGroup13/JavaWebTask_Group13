@@ -72,9 +72,9 @@ public class Register extends HttpServlet {
 		user = new User();
 		user.setUsername(username);
 		user.setPassword(password1);
-		user.setAvatar("/static/img/default.png");
+		user.setAvatar("http://localhost:8080/JavaWebTask_Group13/static/img/default-avatar.jpg");
 		user.setProfile("写点个人简介，帮助别人认识你吧！");
-		user.setNickname("叮当猫");
+		user.setNickname("博客用户" + (int)(Math.random() * 10000));
 		int res = userDao.insert(user);
 		if(res == 0) {
 			request.setAttribute("code", 0);

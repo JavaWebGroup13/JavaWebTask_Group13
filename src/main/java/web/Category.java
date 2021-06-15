@@ -15,6 +15,7 @@ import bean.User;
 import dao.ArticleDao;
 import dao.CategoryDao;
 import dao.DaoFactory;
+
 /**
  * Servlet implementation class Category
  */
@@ -41,10 +42,8 @@ public class Category extends HttpServlet {
 			// e.printStackTrace();
 		}
 		
-		HttpSession session = request.getSession();
-		
 		// 获取session中的属性
-		User user = (User)session.getAttribute("user");
+		User user = (User)request.getSession().getAttribute("user");
 		
 		// 强制登录
 		if(user == null) {
@@ -68,14 +67,12 @@ public class Category extends HttpServlet {
 		if(categorys.size() == 0) {
 			System.out.println("当前没有类别");
 			request.setAttribute("code1", -1);
-			request.setAttribute("msg1", "您的博客当前没有类别，请到管理界面添加");
+			request.setAttribute("msg1", "您的博客当前没有类别，请添加");
 			request.getRequestDispatcher("category.jsp").forward(request, response);
 			return;
 		}
 		
 		// 查询类别成功
-		request.setAttribute("code1", 0);
-		request.setAttribute("msg1", "查询类别成功");
 		request.setAttribute("categorys", categorys);
 		
 		// 查询文章
@@ -92,7 +89,7 @@ public class Category extends HttpServlet {
 			request.setAttribute("which", category);
 		}else {
 			// 查询自己所有文章
-			category_articles = articleDao.queryAll(user.getId());
+			category_articles = articleDao.queryAllByAuthorId(user.getId());
 			request.setAttribute("which", 0);
 		}
 		
@@ -113,9 +110,6 @@ public class Category extends HttpServlet {
 		}
 
 		// 查询文章成功
-		request.setAttribute("code2", 0);
-		request.setAttribute("msg2", "查询当前类别的文章成功");
-		
 		
 		request.setAttribute("category_articles", category_articles);
 		request.getRequestDispatcher("category.jsp").forward(request, response);
@@ -125,7 +119,34 @@ public class Category extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		String title = new String(request.getParameter("title").getBytes("iso-8859-1"),"utf-8");
+		
+		// 获取session中的属性
+		User user = (User)request.getSession().getAttribute("user");
+				
+		// 强制登录
+		if(user == null) {
+			response.sendRedirect("/JavaWebTask_Group13/Login");
+			return;
+		}
+		
+		if(title.trim().isEmpty()) {
+			request.setAttribute("code1", -1);
+			request.setAttribute("msg1", "请输入类别标题");
+			request.getRequestDispatcher("category.jsp").forward(request, response);
+			return;
+		}
+		
+		bean.Category category = new bean.Category();
+		category.setAuthorId(user.getId());
+		category.setTitle(title);
+		
+		CategoryDao categoryDao = DaoFactory.getCategoryDaoInstance();
+		categoryDao.insert(category);
+		
+		request.setAttribute("code1", 0);
+		request.setAttribute("msg1", "添加类别成功");
+		response.sendRedirect("/JavaWebTask_Group13/Category");
 	}
 
 }

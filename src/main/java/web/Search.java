@@ -31,22 +31,12 @@ public class Search extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("search.jsp").forward(request, response);
-	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setCharacterEncoding("UTF-8");
-//		response.setHeader("Content-Type", "text/html;charset=UTF-8");
-		
 		// 获取表单参数
-		String keywords = request.getParameter("keywords");
+		String keywords = new String(request.getParameter("keywords").getBytes("iso-8859-1"),"utf-8");
 		
 		// 参数为空
-		if(keywords.trim().isEmpty()) {
+		if(keywords == null || keywords.trim().isEmpty()) {
 			System.out.println("参数为空");
 			request.setAttribute("code", -1);
 			request.setAttribute("msg", "请输入关键字进行查询");
@@ -83,5 +73,12 @@ public class Search extends HttpServlet {
 		request.setAttribute("msg", "成功查询到关于《" + keywords + "》的" + articles.size() + "条数据！");
 		request.setAttribute("articles", articles);
 		request.getRequestDispatcher("search.jsp").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
 	}
 }

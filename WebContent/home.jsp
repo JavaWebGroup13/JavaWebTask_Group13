@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!-- 导入dao包下的所有类 -->
-<%@ page import="dao.*" %>
-<!-- 导入bean包下的所有类 -->
-<%@ page import="bean.*" %>
-
-<%@ page import="java.util.List" %>
-
 <%@include file="head.jsp" %>
         <!-- home -->
         <div class="home row">
@@ -68,15 +61,19 @@
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
                         <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
+                            <a class="page-link" href="${pageContext.request.contextPath}/Home?page=${page > 1 ? page - 1 : 1 }" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <c:forEach var="i" begin="1" end="${ page_count }">
+                            <li class="page-item">
+	                            <a class="page-link" href="${pageContext.request.contextPath}/Home?page=${ i }">
+	                                ${ i }
+	                            </a>
+                            </li>
+                        </c:forEach>
                         <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
+                            <a class="page-link" href="${pageContext.request.contextPath}/Home?page=${page < page_count ? page + 1 : page_count }" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
@@ -87,7 +84,14 @@
             <div class="col-md-3">
                 <!-- 个人信息 -->
                 <div class="card">
-                	<img src="${ user != null ? user.getAvatar() : '' }" class="card-img-top" alt="...">
+                	<!-- 显示用户自己头像 -->
+                	<c:if test="${user != null }">
+                		<img src="${ user.getAvatar() }" class="card-img-top " alt="...">
+                    </c:if>
+                    <!-- 显示默认头像 -->
+                    <c:if test="${ user == null }">
+                		<img src="${pageContext.request.contextPath}/static/img/default-avatar.jpg" class="card-img-top" alt="...">
+                    </c:if>
                     <div class="card-body">
 	                    <h4 class="card-title">
 	                    	${ user != null ? user.getNickname() : "未登录" }
@@ -101,12 +105,16 @@
                     </div>
                 </div>
 
-                <h4 class="title mt-4 ml-2">最近更新</h4>
-                <!-- 推荐文章 -->
-                <div class="list-group list-group-flush mt-4">
-                    <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-                    <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-                    <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+				<div class="card mt-4 ">
+					<div class="card-body">
+						<h4 class="card-title">最近更新</h4>
+		                <!-- 推荐文章 -->
+		                <div class="list-group list-group-flush mt-4">
+		                <c:forEach var="article" items="${ articles_lately }" >
+		                    <a href="${pageContext.request.contextPath}/Details?id=${ article.getId() }" class="list-group-item list-group-item-action">${ article.getTitle() }</a>
+		                </c:forEach>
+		                </div>
+		            </div>
                 </div>
             </div>
         </div>
