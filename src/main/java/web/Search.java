@@ -31,10 +31,8 @@ public class Search extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		// 获取表单参数
-		String keywords = new String(request.getParameter("keywords").getBytes("iso-8859-1"),"utf-8");
-		
+		String keywords = new String(request.getParameter("keywords").getBytes("ISO-8859-1"), "UTF-8");
 		// 参数为空
 		if(keywords == null || keywords.trim().isEmpty()) {
 			System.out.println("参数为空");
@@ -43,12 +41,9 @@ public class Search extends HttpServlet {
 			request.getRequestDispatcher("search.jsp").forward(request, response);
 			return;
 		}
-		
 		// 获取用于操作文章的articleDao实例
 		ArticleDao articleDao = DaoFactory.getArticleDaoInstance();
-				
 		List<Article> articles = articleDao.queryAll(keywords.trim());
-		
 		// 查询出错
 		if(articles == null) {
 			System.out.println("查询出错");
@@ -57,18 +52,16 @@ public class Search extends HttpServlet {
 			request.getRequestDispatcher("search.jsp").forward(request, response);
 			return;
 		}
-		
 		// 查询结果为0
 		if(articles.size() == 0) {
-			System.out.println("查询结果为0");
+			System.out.println("Search -> 查询结果为空，关键词：" + keywords);
 			request.setAttribute("code", -1);
 			request.setAttribute("msg", "未查找到关于《" + keywords + "》的相关文章，换个关键词试试吧！");
 			request.getRequestDispatcher("search.jsp").forward(request, response);
 			return;
 		}
-		
 		// 查询成功
-		System.out.println("Search: 成功查询到" + articles.size() + "条数据！");
+		System.out.println("Search -> 成功查询到" + articles.size() + "条数据！");
 		request.setAttribute("code", 0);
 		request.setAttribute("msg", "成功查询到关于《" + keywords + "》的" + articles.size() + "条数据！");
 		request.setAttribute("articles", articles);

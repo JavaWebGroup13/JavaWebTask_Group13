@@ -1,14 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    
 <%@include file="head.jsp" %>
         <div class="write">
             <!-- 没有登录 -->
             <c:if test="${user == null}">
 	            <div class="alert alert-warning" role="alert">
-	                无法写作，您没有权限，<a href="${pageContext.request.contextPath}/login.jsp">点此登录</a>
+	                无法写作，您没有权限，<a href="${basePath}/login.jsp">点此登录</a>
 	            </div>
             </c:if>
             <!-- 添加文章结果 -->
@@ -18,7 +15,7 @@
 	            </div>
             </c:if>
             <!-- 已登录 -->
-            <form method="POST" action="${pageContext.request.contextPath}/Write" onsubmit="return checkForm()">
+            <form method="POST" action="${basePath}/Write" onsubmit="return checkForm()">
                 <input type="hidden" name="isUpdate" value='${ article == null ?  "false" : "true" }'>
                 <input type="hidden" name="id" value='${ article.getId() }'>
                 <div class="form-group">
@@ -73,7 +70,7 @@
             		console.log(cover, title, summary, category, content);
             		if(cover.trim() == '' || title.trim() == '' || summary.trim() == '' || category.trim() == '' || content.trim() == '') {
             			console.log('信息不全')
-            			return true;
+            			return false;
             		}
             		return true;
             	}

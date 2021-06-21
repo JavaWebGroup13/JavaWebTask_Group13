@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@include file="head.jsp" %>
         <!-- center -->
         <div class="center">
@@ -54,10 +53,14 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form id="changeInfo" action="${pageContext.request.contextPath}/Center" method="POST">
+                                <form id="changeInfo" action="${basePath}/Center" method="POST">
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">昵称</label>
                                         <input name="nick" type="text" class="form-control" id="recipient-name" value="${ user.getNickname() }">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">头像</label>
+                                        <textarea name="avatar" class="form-control" id="message-text">${ user.getAvatar() }</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">简介</label>

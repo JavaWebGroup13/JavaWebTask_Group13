@@ -47,7 +47,8 @@ public interface UserDao{
     public List<User> queryAll();
 
     /**
-     * 根据Username、Password登录
+     * 根据Username、password登录
+     * @param username password
      * @return User
      */
     public User login(String username, String password);

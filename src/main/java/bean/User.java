@@ -1,5 +1,8 @@
 package bean;
 
+/*
+ * 用户
+ */
 public class User {
 	private int Id;
 	private String Username;

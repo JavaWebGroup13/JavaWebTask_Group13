@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@include file="head.jsp" %>
         <!-- category类别 -->
         <div class="category">
@@ -15,7 +14,7 @@
             <ul class="nav nav-tabs">
             	<c:forEach var="category" items="${ categorys }">
                 <li class="nav-item">
-                    <a class="nav-link ${ category.getId() == which ? 'active' : '' }" href="${pageContext.request.contextPath}/Category?id=${ category.getId() }">
+                    <a class="nav-link ${ category.getId() == which ? 'active' : '' }" href="${basePath}/Category?id=${ category.getId() }">
                     	${ category.getTitle() }
                     </a>
                 </li>
@@ -32,7 +31,7 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">
-                    	<a href="${pageContext.request.contextPath}/Details?id=${article.getId()}" role="button">
+                    	<a href="${basePath}/Details?id=${article.getId()}" role="button">
                             ${ article.getTitle() }
                         </a>
                     </h5>
@@ -57,7 +56,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="postCategory" action="${pageContext.request.contextPath}/Category" method="POST">
+                        <form id="postCategory" action="${basePath}/Category" method="POST">
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">标题</label>
                                 <input name="title" type="text" class="form-control" id="recipient-name">

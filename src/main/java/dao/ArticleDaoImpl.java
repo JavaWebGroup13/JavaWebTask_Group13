@@ -16,7 +16,6 @@ public class ArticleDaoImpl implements ArticleDao {
 		Connection con = null;
         PreparedStatement pstm = null;
         String sql = "insert into blog_article values (null, ?, ?, ?, ?, now(), now(), ?, ?)";
-
         try
         {
             con = JDBCUtils.getConnerction();
@@ -45,7 +44,6 @@ public class ArticleDaoImpl implements ArticleDao {
 		Connection con = null;
         PreparedStatement pstm = null;
         String sql = "delete from blog_article where id = ?";
-
         try
         {
             con = JDBCUtils.getConnerction();
@@ -69,7 +67,6 @@ public class ArticleDaoImpl implements ArticleDao {
 		Connection con = null;
         PreparedStatement pstm = null;
         String sql = "update blog_article set title=?, summary=?, content=?, cover=?, updateTime=now(), Category_Id=? where id=?";
-
         try
         {
             con = JDBCUtils.getConnerction();
@@ -100,7 +97,6 @@ public class ArticleDaoImpl implements ArticleDao {
         ResultSet rs = null;
         Article article = null;
         String sql = "select * from blog_article where Id = ?";
-
         try
         {
             con = JDBCUtils.getConnerction();
@@ -139,7 +135,6 @@ public class ArticleDaoImpl implements ArticleDao {
         ResultSet rs = null;
         List<Article> articles = new ArrayList<Article>();
         String sql = "select * from blog_article where Author_Id = ? order by UpdateTime desc";
-
         try
         {
             con = JDBCUtils.getConnerction();
@@ -179,7 +174,6 @@ public class ArticleDaoImpl implements ArticleDao {
         ResultSet rs = null;
         List<Article> articles = new ArrayList<Article>();
         String sql = "select * from blog_article where Author_Id = ? and Category_Id = ? order by UpdateTime desc";
-
         try
         {
             con = JDBCUtils.getConnerction();
@@ -220,7 +214,6 @@ public class ArticleDaoImpl implements ArticleDao {
         ResultSet rs = null;
         List<Article> articles = new ArrayList<Article>();
         String sql = "select * from blog_article where Title like ? order by UpdateTime desc";
-
         try
         {
             con = JDBCUtils.getConnerction();
@@ -260,7 +253,6 @@ public class ArticleDaoImpl implements ArticleDao {
         ResultSet rs = null;
         List<Article> articles = new ArrayList<Article>();
         String sql = "select * from blog_article order by UpdateTime desc limit ? , ?";
-
         try
         {
             con = JDBCUtils.getConnerction();
@@ -300,8 +292,7 @@ public class ArticleDaoImpl implements ArticleDao {
         PreparedStatement pstm = null;
         ResultSet rs = null;
         List<Article> articles = new ArrayList<Article>();
-        String sql = "select * from blog_article order by updateTime limit ?";
-
+        String sql = "select * from blog_article order by updateTime desc limit ?";
         try
         {
             con = JDBCUtils.getConnerction();
@@ -341,7 +332,6 @@ public class ArticleDaoImpl implements ArticleDao {
         ResultSet rs = null;
         List<Article> articles = new ArrayList<Article>();
         String sql = "select * from blog_article where author_Id = ? order by updateTime limit ?";
-
         try
         {
             con = JDBCUtils.getConnerction();
@@ -382,7 +372,6 @@ public class ArticleDaoImpl implements ArticleDao {
         ResultSet rs = null;
         List<Article> articles = new ArrayList<Article>();
         String sql = "select * from blog_article where category_Id = ? order by updateTime desc limit ?";
-
         try
         {
             con = JDBCUtils.getConnerction();

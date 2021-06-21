@@ -17,7 +17,6 @@ public class CommentDaoImpl implements CommentDao{
 		Connection con = null;
         PreparedStatement pstm = null;
         String sql = "insert into blog_comment values (null, ?, ?, ?, now())";
-
         try
         {
             con = JDBCUtils.getConnerction();
@@ -40,8 +39,25 @@ public class CommentDaoImpl implements CommentDao{
 
 	@Override
 	public int delete(int commentid) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection con = null;
+        PreparedStatement pstm = null;
+        String sql = "delete from blog_comment where id = ?";
+        try
+        {
+            con = JDBCUtils.getConnerction();
+            pstm = con.prepareStatement(sql);
+            pstm.setInt(1, commentid);
+            pstm.executeUpdate();
+            return 0;
+        } catch (Exception e)
+        {
+            System.out.println("删除评论失败");
+            e.printStackTrace();
+        } finally
+        {
+        	JDBCUtils.relesae(pstm, con);
+        }
+		return -1;
 	}
 
 	@Override
@@ -63,7 +79,6 @@ public class CommentDaoImpl implements CommentDao{
         ResultSet rs = null;
         List<Comment> comments = new ArrayList<Comment>();
         String sql = "select c.id, c.User_Id, c.Article_Id, c.Content, c.created_time, u.Avatar, u.Nickname from blog_comment c left JOIN blog_user u on u.Id = c.User_Id where Article_Id = ? order by Created_Time desc";
-
         try
         {
             con = JDBCUtils.getConnerction();

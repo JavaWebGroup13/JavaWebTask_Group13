@@ -1,5 +1,8 @@
 package bean;
 
+/*
+ * 评论
+ */
 public class Comment {
 	private int Id;
 	private String Content;

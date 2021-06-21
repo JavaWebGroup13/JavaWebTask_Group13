@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@include file="head.jsp" %>
         <!-- search -->
         <div class="search">
@@ -8,13 +7,12 @@
             <div class="alert alert-${ code == 0 ? 'success' : 'warning'}" role="alert">
                 ${ msg }
             </div>
-            
             <!-- 搜索结果 -->
             <c:forEach var="article" items="${ articles }">
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <a href="${pageContext.request.contextPath}/Details?id=${article.getId()}">
+                        <a href="${basePath}/Details?id=${article.getId()}">
                         	${ article.getTitle() }
                         </a>
                     </h5>

@@ -1,5 +1,8 @@
 package bean;
 
+/*
+ * 类别
+ */
 public class Category {
 	private int Id;
 	private String Title;

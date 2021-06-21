@@ -1,18 +1,24 @@
+清空表
+truncate blog_article;
+truncate blog_comment;
+truncate blog_category;
+truncate blog_user;
+
 注册：
-renhongcan
+group13
 123456
 
 个人中心：
-13组博客项目
-大家好,这是我们的javaweb博客项目！
+第13组博客项目
+https://avatars.githubusercontent.com/u/84860018?s=200&v=4
+一款多用户个人博客系统。
 
 添加类别：
 JavaWeb
+Python
 
 写文章：
-http://localhost:8080/JavaWebTask_Group13/static/img/a.jpg
-http://localhost:8080/JavaWebTask_Group13/static/img/b.jpg
-http://localhost:8080/JavaWebTask_Group13/static/img/c.jpg
+http://localhost:8080/JavaWebTask_Group13/static/img/javaweb.jpg
 
 标题：
 Java Web是什么？
@@ -27,8 +33,77 @@ Java Web，是用Java技术来解决相关web互联网领域的技术栈。web�
 第三个要点是构建Java Web项目。Web项目开发的第一步就是要建立项目。在新建Project项目时，选择Dynamic Web Project项目类型，即可创建Web项目。
 第四个要点是建立的项目如何在Server中运行。选择要运行的JSP文件，单击右键，在弹出的菜单中选择Run on Server命令即可，初次运行项目时，需要配置项目在哪个Server中运行（如有多个Server）。
 
+写文章：
+http://localhost:8080/JavaWebTask_Group13/static/img/python.jpg
+
+标题：
+Python是什么？
+
+简介：
+Python由荷兰数学和计算机科学研究学会的Guido van Rossum 于1990 年代初设计，作为一门叫做ABC语言的替代品。 [1]  Python提供了高效的高级数据结构，还能简单有效地面向对象编程。Python语法和动态类型，以及解释型语言的本质，使它成为多数平台上写脚本和快速开发应用的编程语言， [2]  随着版本的不断更新和语言新功能的添加，逐渐被用于独立的、大型项目的开发。
+
+正文：
+自从20世纪90年代初Python语言诞生至今，它已被逐渐广泛应用于系统管理任务的处理和Web编程。
+Python的创始人为荷兰人吉多·范罗苏姆 [6]  （Guido van Rossum）。1989年圣诞节期间，在阿姆斯特丹，Guido为了打发圣诞节的无趣，决心开发一个新的脚本解释程序，作为ABC语言的一种继承。之所以选中Python（大蟒蛇的意思）作为该编程语言的名字，是取自英国20世纪70年代首播的电视喜剧《蒙提·派森的飞行马戏团》（Monty Python's Flying Circus）。
+ABC是由Guido参加设计的一种教学语言。就Guido本人看来，ABC这种语言非常优美和强大，是专门为非专业程序员设计的。但是ABC语言并没有成功，究其原因，Guido认为是其非开放造成的。Guido决心在Python中避免这一错误。同时，他还想实现在ABC中闪现过但未曾实现的东西。
+就这样，Python在Guido手中诞生了。可以说，Python是从ABC发展起来，主要受到了Modula-3（另一种相当优美且强大的语言，为小型团体所设计的）的影响。并且结合了Unix shell和C的习惯。
+Python [7]  已经成为最受欢迎的程序设计语言之一。自从2004年以后，python的使用率呈线性增长。Python 2于2000年10月16日发布，稳定版本是Python 2.7。Python 3于2008年12月3日发布，不完全兼容Python 2。 [6]  2011年1月，它被TIOBE编程语言排行榜评为2010年度语言。
+
 评论：
 Internet上供外界访问的Web资源分为：静态web资源、动态web资源。
 
-搭建Java Web应用的开发环境-----部署Tomcat服务器、用eclipse创建Server服务、构建Java Web项目、建立第一个JSP文件、 运行JSP文件。
+评论：
+Python是一种代表简单主义思想的语言。
 
+删除评论：
+
+搜索：
+java
+python
+
+批量插入数据
+insert into blog_article(title,summary,content,cover,createdTime,updateTime,author_id,category_id)
+select title,summary,content,cover,createdTime,updateTime,author_id,category_id from blog_article
+
+分页演示
+
+修改文章：
+这是将要删除的文章
+
+删除文章：
+
+关于页面
+
+
+分工：
+任红灿
+    1、前端页面设计
+    2、数据库表的设计
+    3、主页数据展示模块编写
+    4、java bean的创建
+    5、dao接口的创建
+    6、UserDaoImpl类的实现
+    涉及类及文件：bean.*.java、dao.*Dao.java、UserDaoImpl.java、Home.java
+刘风暴
+    1、数据库建表语句编写
+    2、查看文章详情界面的编写
+    3、注册登录模块的编写
+    4、ArticleDaoImpl类的实现
+    5、注册登录界面代码编写
+    涉及类及文件：Details.java、Register.java、Login.java、ArticleDaoImpl.java、register.jsp、login.jsp
+任寒露
+    1、JDBC工具类的编写
+    2、用户中心模块的编写
+    3、类别显示、增加模块的编写
+    4、CategoryDaoImpl类的实现
+    5、类别界面代码的编写
+    6、删除文章及评论模块的编写
+    涉及类及文件：JDBCUtils.java、Center.java、Category.java、Delete.java、CategoryDaoImpl.java、category.jsp、delete.jsp
+武文龙
+    1、文章、类别、评论的SQL语句编写
+    2、搜索模块的编写
+    3、增加文章、修改文章模块的编写
+    4、CommentDaoImpl类的实现
+    5、添加文章界面的代码编写
+    6、退出登录模块的编写
+    涉及类及文件：Search.java、CommentDaoImpl.java、Write.java、Logout.java、write.jsp、logout.jsp
