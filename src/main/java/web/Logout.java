@@ -9,10 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.User;
-import dao.DaoFactory;
-import dao.UserDao;
-
 /**
  * Servlet implementation class Logout
  */
@@ -31,24 +27,24 @@ public class Logout extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		// 退出登录，清除session中的user
 		HttpSession session = request.getSession();
-		session.removeAttribute("isLogin");
 		session.removeAttribute("user");
-		
-		Cookie cookie = new Cookie("isLogin", null);
-		response.addCookie(cookie);
+		// 退出登录，清除客户端的userid、token
+		Cookie cookie1 = new Cookie("userid", null);
+		Cookie cookie2 = new Cookie("token", null);
+		cookie1.setMaxAge(0);
+		cookie2.setMaxAge(0);
+		response.addCookie(cookie1);
+		response.addCookie(cookie2);
+		System.out.println("Logout -> 退出登录成功");
 		request.getRequestDispatcher("logout.jsp").forward(request, response);
-		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		
+		doGet(request, response);
 	}
-
 }

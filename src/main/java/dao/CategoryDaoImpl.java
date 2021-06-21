@@ -17,7 +17,6 @@ public class CategoryDaoImpl implements CategoryDao{
 		Connection con = null;
         PreparedStatement pstm = null;
         String sql = "insert into blog_category values (null, ?, ?)";
-
         try
         {
             con = JDBCUtils.getConnerction();
@@ -56,7 +55,6 @@ public class CategoryDaoImpl implements CategoryDao{
         ResultSet rs = null;
         List<Category> categorys = new ArrayList<Category>();
         String sql = "select * from blog_category where Author_Id = ?";
-
         try
         {
             con = JDBCUtils.getConnerction();

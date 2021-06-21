@@ -37,11 +37,11 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		// 获取表单参数
 		String username = request.getParameter("username").trim();
 		String password1 = request.getParameter("password1").trim();
 		String password2 = request.getParameter("password2").trim();
-		
 		// 信息不完整
 		if(username.isEmpty() || password1.isEmpty() || password2.isEmpty()) {
 			request.setAttribute("code", -1);
@@ -49,7 +49,6 @@ public class Register extends HttpServlet {
 			request.getRequestDispatcher("register.jsp").forward(request, response);
 			return;
 		}
-		
 		// 密码不一致
 		if(!password1.equals(password2)) {
 			request.setAttribute("code", -1);
@@ -57,7 +56,6 @@ public class Register extends HttpServlet {
 			request.getRequestDispatcher("register.jsp").forward(request, response);
 			return;
 		}
-		
 		// 用户名已存在
 		UserDao userDao = DaoFactory.getUserDaoInstance();
 		User user = userDao.query(username);
@@ -67,8 +65,7 @@ public class Register extends HttpServlet {
 			request.getRequestDispatcher("register.jsp").forward(request, response);
 			return;
 		}
-		
-		// 注册成功
+		// 进行注册
 		user = new User();
 		user.setUsername(username);
 		user.setPassword(password1);
@@ -77,10 +74,12 @@ public class Register extends HttpServlet {
 		user.setNickname("博客用户" + (int)(Math.random() * 10000));
 		int res = userDao.insert(user);
 		if(res == 0) {
+			System.out.println("Register -> 注册成功：" + username);
 			request.setAttribute("code", 0);
 			request.setAttribute("msg", "注册成功！3s后跳转到登录界面");
 			request.getRequestDispatcher("register.jsp").forward(request, response);
 		}else {
+			System.out.println("Register -> 注册失败：" + username);
 			request.setAttribute("code", -1);
 			request.setAttribute("msg", "注册失败！，请联系开发者");
 			request.getRequestDispatcher("register.jsp").forward(request, response);

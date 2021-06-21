@@ -1,5 +1,8 @@
 package bean;
 
+/*
+ * 文章
+ */
 public class Article {
 	private int Id;
 	private String Title;

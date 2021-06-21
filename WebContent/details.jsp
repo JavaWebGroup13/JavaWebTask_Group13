@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@include file="head.jsp" %>
         <div class="details row">
             <!-- 左侧 -->
@@ -20,7 +19,7 @@
                         <c:if test="${ user != null && article.getAuthorId() == user.getId() }">
                             <div class="row mt-4">
                                 <div class="col-4">
-                                    <a class="link" href="${pageContext.request.contextPath}/Write?id=${article.getId()}">编辑文章</a>
+                                    <a class="link" href="${basePath}/Write?id=${article.getId()}">编辑文章</a>
                                 </div>
                                 <div class="col-4">
                                     <a class="text-danger" href="#" data-toggle="modal" data-target="#exampleModal">删除文章</a>
@@ -37,14 +36,14 @@
                 <div class="card mt-4 mb-4">
                     <div class="card-body">
                         <h4 class="card-title">评论</h4>
-                        <form action="${pageContext.request.contextPath}/Details" method="POST">
+                        <form action="${basePath}/Details" method="POST">
                         	<input name="id" type="hidden" value="${ article.getId() }">
                         	<!-- 没有登录 -->
                             <c:if test="${ user == null }">
 	                            <div class="form-group">
 	                                <textarea disabled class="form-control" placeholder="说点什么吧..." style="min-height: 120px;" name="content"></textarea>
 	                            </div>
-                            	<a href="${pageContext.request.contextPath}/Login" class="btn btn-primary">去登录</a>
+                            	<a href="${basePath}/Login" class="btn btn-primary">去登录</a>
                             </c:if>
                             <!-- 已登录 -->
                             <c:if test="${ user != null }">
@@ -63,10 +62,16 @@
                 <div class="media">
                     <img src="${ comment.getAvatar() }" class="mr-3" alt="..." style="width: 64px;height: 64px;">
                     <div class="media-body">
-                        <h5 class="mt-0">${ comment.getNickName() }</h5>
+                    	<div class="row mt-0">
+                    	    <h5 class="col-md-7">${ comment.getNickName() }</h5>
+                    	 	<p class="col-md-5">${ comment.getCreatedTime() }</p>
+                    	</div>
                         <div class="row">
                             <p class="col-md-9">${ comment.getContent() }</p>
-                            <p class="col-md-3">${ comment.getCreatedTime() }</p>
+                            <!-- 已登录且是自己的评论 || 已登录且是自己的文章 -->
+                            <c:if test="${ user != null && comment.getUserId() == user.getId() || article.getAuthorId() == user.getId() }">
+                                <a href="${basePath}/Delete?type=comment&articleid=${ article.getId() }&commentid=${comment.getId()}" class="text-danger">删除</a>
+                            </c:if>
                         </div>
                     </div>
                 </div>
@@ -81,14 +86,13 @@
 		                <!-- 推荐文章 -->
 		                <div class="list-group list-group-flush mt-4">
 		                <c:forEach var="article" items="${ articles_relevant }" >
-		                     <a href="${pageContext.request.contextPath}/Details?id=${ article.getId() }" class="list-group-item list-group-item-action">${ article.getTitle() }</a>
+		                     <a href="${basePath}/Details?id=${ article.getId() }" class="list-group-item list-group-item-action">${ article.getTitle() }</a>
 		                </c:forEach>
 		                </div>
 		            </div>
                 </div>
             </div>
         </div>
-
         <!-- 删除文章拟态框 -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -104,7 +108,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
-                        <a href="${pageContext.request.contextPath}/Delete?id=${article.getId()}" type="button" class="btn btn-danger">删除</a>
+                        <a href="${basePath}/Delete?type=article&articleid=${ article.getId() }" type="button" class="btn btn-danger">删除</a>
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@ import bean.Article;
 public interface ArticleDao {
     /**
      * 增加文章
-     * @param Article
+     * @param article
      * @return 0 成功 -1 失败
      */
 	public int insert(Article article);
@@ -21,14 +21,14 @@ public interface ArticleDao {
 
     /**
      * 更新文章
-     * @param Article
+     * @param article
      * @return 0 成功 -1 失败
      */
     public int update(Article article);
 
     /**
      * 根据ArticleId查询文章
-     * @param authorid
+     * @param articleid
      * @return Article
      */
     public Article query(int articleid);
@@ -62,15 +62,15 @@ public interface ArticleDao {
     public List<Article> queryByUpdateTime(int authorid, int count);
     
     /**
-     * 根据Category_Id获取相关的N条文章
-     * @param count
+     * 根据Category_Id获取相关的count条文章
+     * @param category count
      * @return List
      */
     public List<Article> queryByCategory(int category, int count);
     
     /**
      * 根据Title查询所有文章
-     * @param Title
+     * @param title
      * @return List
      */
     public List<Article> queryAll(String title);

@@ -36,14 +36,12 @@ public class Write extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 获取session中的属性
 		User user = (User)request.getSession().getAttribute("user");
-				
 		// 强制登录
 		if(user == null) {
 			response.sendRedirect("/JavaWebTask_Group13/Login");
 			return;
 		}
-		
-		// 如果有id，则更新文章，否则是添加文章
+		// 如果有id，则是更新文章，否则是添加文章
 		int id = -1;
 		try{
 			id = Integer.parseInt(request.getParameter("id"));
@@ -51,12 +49,9 @@ public class Write extends HttpServlet {
 			ArticleDao articleDao = DaoFactory.getArticleDaoInstance();
 			Article article = articleDao.query(id);
 			request.setAttribute("article", article);
-		}catch(Exception e) {
-			// e.printStackTrace();
-		}
+		}catch(Exception e) {}
 		CategoryDao categoryDao = DaoFactory.getCategoryDaoInstance();
 		List<bean.Category> categorys = categoryDao.queryAll(user.getId());
-		
 		// 查询出错
 		if(categorys == null) {
 			System.out.println("查询类别出错");
@@ -65,7 +60,6 @@ public class Write extends HttpServlet {
 			request.getRequestDispatcher("write.jsp").forward(request, response);
 			return;
 		}
-		
 		// 没有类别
 		if(categorys.size() == 0) {
 			System.out.println("当前没有类别");
@@ -82,34 +76,29 @@ public class Write extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		// 获取表单参数
-		String cover = new String(request.getParameter("cover").getBytes("iso-8859-1"),"utf-8");
-		String title = new String(request.getParameter("title").getBytes("iso-8859-1"),"utf-8");
+		String cover = request.getParameter("cover");
+		String title = request.getParameter("title");
+		String summary = request.getParameter("summary");
+		String content = request.getParameter("content");
+		String isUpdate = request.getParameter("isUpdate");
 		int category = new Integer(request.getParameter("category"));
-		String summary = new String(request.getParameter("summary").getBytes("iso-8859-1"),"utf-8");
-		String content = new String(request.getParameter("content").getBytes("iso-8859-1"),"utf-8");
-
-		String isUpdate = new String(request.getParameter("isUpdate").getBytes("iso-8859-1"),"utf-8");
-
 		if(cover.isEmpty() || title.isEmpty() || category < 0 || summary.isEmpty() || content.isEmpty()) {
 			System.out.println("表单为空");
 			response.sendRedirect("/JavaWebTask_Group13/Write");
 			return;
 		}
-
 		// 获取session中的属性
 		User user = (User)request.getSession().getAttribute("user");
-				
 		// 强制登录
 		if(user == null) {
 			System.out.println("需要登录");
 			response.sendRedirect("/JavaWebTask_Group13/Login");
 			return;
 		}
-
 		// 获取用于操作文章的ArticleDao实列
 		ArticleDao articleDao = DaoFactory.getArticleDaoInstance();
-
 		Article article = new Article();
 		article.setCover(cover);
 		article.setTitle(title);
@@ -117,7 +106,6 @@ public class Write extends HttpServlet {
 		article.setSummary(summary);
 		article.setContent(content);
 		article.setAuthorId(user.getId());
-		
 		int resCode = -1;
 		if("true".equals(isUpdate)) {
 			int id = new Integer(request.getParameter("id"));
@@ -126,7 +114,6 @@ public class Write extends HttpServlet {
 		}else {
 			resCode = articleDao.insert(article);
 		}
-		
 		if(resCode == 0) {
 			request.setAttribute("code", 0);
 			request.setAttribute("msg", "操作成功！");

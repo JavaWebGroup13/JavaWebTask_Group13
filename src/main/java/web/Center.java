@@ -34,25 +34,21 @@ public class Center extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 获取session中的属性
 		User user = (User)request.getSession().getAttribute("user");
-				
 		// 强制登录
 		if(user == null) {
 			response.sendRedirect("/JavaWebTask_Group13/Login");
 			return;
 		}
-		
 		// 获取用于操作数据库的实例
 		ArticleDao articleDao = DaoFactory.getArticleDaoInstance();
 		CategoryDao categoryDao = DaoFactory.getCategoryDaoInstance();
 		CommentDao commentDao = DaoFactory.getCommentDaoInstance();
-		
 		// 获取文章总数
 		int articleCounts = articleDao.queryAllCounts(user.getId());
 		// 获取类别总数
 		int categoryCounts = categoryDao.queryAllCounts(user.getId());
 		// 获取评论总数
 		int commentCounts = commentDao.queryAllCounts(user.getId());
-
 		request.setAttribute("articleCounts", articleCounts);
 		request.setAttribute("categoryCounts", categoryCounts);
 		request.setAttribute("commentCounts", commentCounts);
@@ -63,22 +59,24 @@ public class Center extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		// 获取session中的属性
 		User user = (User)request.getSession().getAttribute("user");
-						
 		// 强制登录
 		if(user == null) {
 			response.sendRedirect("/JavaWebTask_Group13/Login");
 			return;
 		}
-		
-		String nick = new String(request.getParameter("nick").getBytes("iso-8859-1"),"utf-8");
-		String profile = new String(request.getParameter("profile").getBytes("iso-8859-1"),"utf-8");
-		
+		String nick = request.getParameter("nick");
+		String profile = request.getParameter("profile");
+		String avatar = request.getParameter("avatar");
 		user.setNickname(nick);
 		user.setProfile(profile);
+		user.setAvatar(avatar);
 		UserDao userDao = DaoFactory.getUserDaoInstance();
+		// 更新个人资料
 		userDao.update(user);
+		System.out.println("Center -> 更新用户信息成功");
 		response.sendRedirect("/JavaWebTask_Group13/Center");
 	}
 
